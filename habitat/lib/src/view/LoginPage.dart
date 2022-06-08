@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,29 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   bool loading = false;
   late String title;
   late String actionButton;
-  late String toggleButton;
-
-  @override
-  void initState() {
-    super.initState();
-    setFormAction(true);
-  }
-
-  //troca de login <-> registro
-  setFormAction(bool action) {
-    setState(() {
-      isLogin = action;
-      if (isLogin) {
-        title = "Bem vindo";
-        actionButton = "Login";
-        toggleButton = "Cadastre-se";
-      } else {
-        title = "Crie sua conta ";
-        actionButton = "Cadastar";
-        toggleButton = "Voltar ao login";
-      }
-    });
-  }
 
   login() async {
     setState(() => loading = true);
@@ -69,100 +47,74 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
       body: SingleChildScrollView(
         child: Padding(
-          padding: EdgeInsets.only(top: 100),
-          child: Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 35),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(24),
-                  child: TextFormField(
-                    controller: emailController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Email",
+          padding: const EdgeInsets.only(top: 100),
+          child: Column(
+            children: [
+              TextButton(
+                child: const Icon(Icons.arrow_back),
+                onPressed: () => {Navigator.of(context).pop()},
+              ),
+              const Text("Login"),
+              Form(
+                key: formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: TextFormField(
+                        controller: emailController,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Email institucional INATEL",
+                        ),
+                        keyboardType: TextInputType.emailAddress,
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Informe o email corretamente';
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                    keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Informe o email corretamente';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
-                  child: TextFormField(
-                    controller: passwordController,
-                    obscureText: true,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: "Senha",
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      child: TextFormField(
+                        controller: passwordController,
+                        obscureText: true,
+                        decoration: const InputDecoration(
+                          border: OutlineInputBorder(),
+                          labelText: "Senha",
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Informe sua senha';
+                          } else if (value.length < 8) {
+                            return "Sua senha deve ter no mínimo 8 caracteres";
+                          }
+                          return null;
+                        },
+                      ),
                     ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Informe sua senha';
-                      } else if (value.length < 8) {
-                        return "Sua senha deve ter no mínimo 8 caracteres";
-                      }
-                      return null;
-                    },
-                  ),
+                    ButtonElipse(
+                      "Login",
+                      login,
+                      backgroundColor: const Color.fromARGB(255, 5, 54, 116),
+                      fontColor: const Color.fromARGB(255, 220, 221, 203),
+                    )
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.all(24),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (formKey.currentState!.validate()) {
-                        if (isLogin) {
-                          login();
-                        } else {
-                          register();
-                        }
-                      }
-                    },
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: (loading)
-                          ? [
-                              const Padding(
-                                padding: EdgeInsets.all(16),
-                                child: SizedBox(
-                                  width: 24,
-                                  height: 24,
-                                  child: CircularProgressIndicator(
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              )
-                            ]
-                          : [
-                              Icon(Icons.check),
-                              Padding(
-                                padding: EdgeInsets.all(16),
-                                child: Text(
-                                  actionButton,
-                                  style: TextStyle(fontSize: 20),
-                                ),
-                              )
-                            ],
-                    ),
-                  ),
-                ),
-                TextButton(
-                  onPressed: () => setFormAction(!isLogin),
-                  child: Text(toggleButton),
-                )
-              ],
-            ),
+              ),
+              Row(
+                children: [
+                  const Text("Ainda não tem uma conta?"),
+                  TextButton(onPressed: () => {}, child: const Text("Cadastre-se"))
+                ],
+              )
+            ],
           ),
         ),
       ),

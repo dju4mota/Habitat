@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/view/HomeView.dart';
+import 'package:habitat/src/view/StartView.dart';
 import 'package:provider/provider.dart';
-
-import '../view/LoginPage.dart';
 
 class AuthCheck extends StatefulWidget {
   const AuthCheck({Key? key}) : super(key: key);
@@ -20,7 +19,7 @@ class _AuthCheckState extends State<AuthCheck> {
     if (auth.isLoading) {
       return loading();
     } else if (auth.usuario == null) {
-      return LoginPage();
+      return StartView();
     } else {
       return HomeView();
     }
