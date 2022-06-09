@@ -45,7 +45,9 @@ class _LoginPageState extends State<LoginPage> {
   login() async {
     setState(() => loading = true);
     try {
-      await context.read<AuthService>().login(emailController.text, passwordController.text);
+      await context
+          .read<AuthService>()
+          .login(emailController.text, passwordController.text);
     } on AuthException catch (e) {
       setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -57,7 +59,9 @@ class _LoginPageState extends State<LoginPage> {
   register() async {
     setState(() => loading = true);
     try {
-      await context.read<AuthService>().register(emailController.text, passwordController.text);
+      await context
+          .read<AuthService>()
+          .register(emailController.text, passwordController.text);
     } on AuthException catch (e) {
       setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
