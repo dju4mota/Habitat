@@ -29,7 +29,8 @@ class AuthService extends ChangeNotifier {
 
   register(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -44,12 +45,14 @@ class AuthService extends ChangeNotifier {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       _getUser();
+      return true;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         throw AuthException("Email não encontrado. Cadastre-se");
       } else if (e.code == 'wrong-password') {
         throw AuthException('Senha Incorreta. Tente novamente');
       }
+      return false;
     }
   }
 

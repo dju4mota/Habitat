@@ -35,6 +35,10 @@ dev_dependencies:
 flutter:
   assets:
     - assets/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/inter/Inter-VariableFont_slnt,wght.ttf  
   uses-material-design: true
 
 

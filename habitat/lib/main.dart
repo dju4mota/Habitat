@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthCheck.dart';
 import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/view/HomeView.dart';
 import 'package:habitat/src/view/LoginPage.dart';
 import 'package:habitat/src/view/RegisterView.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => AuthCheck(),
         '/login': (context) => LoginPage(),
         '/register': (context) => RegisterView(),
+        '/home': (context) => HomeView(),
       },
       // home: AuthCheck(),
     );

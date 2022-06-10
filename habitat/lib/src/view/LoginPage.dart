@@ -23,9 +23,12 @@ class _LoginPageState extends State<LoginPage> {
   login() async {
     setState(() => loading = true);
     try {
-      await context
+      bool logado = await context
           .read<AuthService>()
           .login(emailController.text, passwordController.text);
+      if (logado) {
+        Navigator.of(context).pushNamed('/home');
+      }
     } on AuthException catch (e) {
       setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -85,7 +88,8 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 24),
                       child: TextFormField(
                         controller: passwordController,
                         obscureText: true,
@@ -115,7 +119,8 @@ class _LoginPageState extends State<LoginPage> {
               Row(
                 children: [
                   const Text("Ainda não tem uma conta?"),
-                  TextButton(onPressed: () => {}, child: const Text("Cadastre-se"))
+                  TextButton(
+                      onPressed: () => {}, child: const Text("Cadastre-se"))
                 ],
               )
             ],
