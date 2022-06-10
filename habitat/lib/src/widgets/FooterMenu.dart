@@ -24,19 +24,27 @@ class FooterMenu extends StatelessWidget {
         children: [
           // 4 buttons
           CupertinoButton(
-            onPressed: () => {},
+            onPressed: () {
+              this.routeHome();
+            },
             child: Icon(Icons.home, color: corBotao, size: 35),
           ),
           CupertinoButton(
-            onPressed: () => {},
+            onPressed: () {
+              this.routeSearch();
+            },
             child: Icon(Icons.search, color: corBotao, size: 35),
           ),
           CupertinoButton(
-            onPressed: () => {},
+            onPressed: () {
+              this.routeAdd();
+            },
             child: Icon(Icons.add, color: corBotao, size: 35),
           ),
           CupertinoButton(
-            onPressed: () => {},
+            onPressed: () {
+              this.routePerson();
+            },
             child: Icon(Icons.person, color: corBotao, size: 35),
           ),
         ],

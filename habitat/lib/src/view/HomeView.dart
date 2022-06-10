@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:habitat/src/widgets/FooterMenu.dart';
+import 'package:habitat/src/widgets/ImageButton.dart';
 import 'package:provider/provider.dart';
 
 import '../widgets/Carrossel.dart';
@@ -20,7 +21,7 @@ class _HomeViewState extends State<HomeView> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             const SizedBox(
               // não sei se funciona para todo celular
@@ -68,7 +69,7 @@ class _HomeViewState extends State<HomeView> {
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Text(
+                const Text(
                   "Dúvidas",
                   style: TextStyle(
                     fontSize: 29,
@@ -79,7 +80,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 CupertinoButton(
                   onPressed: () => {},
-                  child: Icon(
+                  child: const Icon(
                     Icons.search,
                     color: Color.fromARGB(255, 5, 54, 116),
                     size: 35,
@@ -89,38 +90,24 @@ class _HomeViewState extends State<HomeView> {
             ),
             // carrossel com imagens
             Container(
+              height: 390,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(children: [
-                    Column(
-                      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        IconButton(
-                          onPressed: () => {},
-                          icon: Image.asset(
-                            "assets/programming1.png",
-                            height: 250,
-                          ),
-                          iconSize: 70,
-                        ),
-                        const Text("C204"),
-                      ],
-                    ),
-                    IconButton(
-                        onPressed: () => {},
-                        icon: Image.asset("assets/programming1.png"),
-                        iconSize: 150)
-                  ]),
-                  Row(children: [
-                    IconButton(
-                        onPressed: () => {},
-                        icon: Image.asset("assets/programming1.png"),
-                        iconSize: 150),
-                    IconButton(
-                        onPressed: () => {},
-                        icon: Image.asset("assets/programming1.png"),
-                        iconSize: 150)
-                  ]),
+                        ImageButton(
+                            "assets/programming2.png", () => {}, "C204"),
+                        ImageButton(
+                            "assets/circuit-board2.png", () => {}, "E209"),
+                      ]),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        ImageButton("assets/maths2.png", () => {}, "M005"),
+                        ImageButton("assets/anatomia2.png", () => {}, "B023"),
+                      ]),
                 ],
               ),
             ),
