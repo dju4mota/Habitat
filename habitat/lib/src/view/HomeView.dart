@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/view/QuestionList.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:habitat/src/widgets/FooterMenu.dart';
 import 'package:habitat/src/widgets/ImageButton.dart';
@@ -11,6 +12,10 @@ import '../widgets/Carrossel.dart';
 class HomeView extends StatefulWidget {
   @override
   State<HomeView> createState() => _HomeViewState();
+}
+
+openQuestionView(context) {
+  Navigator.of(context).pushNamed('/questionList');
 }
 
 class _HomeViewState extends State<HomeView> {
@@ -97,8 +102,8 @@ class _HomeViewState extends State<HomeView> {
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        ImageButton(
-                            "assets/programming2.png", () => {}, "C204"),
+                        ImageButton("assets/programming2.png",
+                            () => {openQuestionView(context)}, "C204"),
                         ImageButton(
                             "assets/circuit-board2.png", () => {}, "E209"),
                       ]),
@@ -112,11 +117,11 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
             // 4 buttons com nagivator
-            FooterMenu(() => {}, () => {}, () => {}, () => {}),
-            // ElevatedButton(
-            //   onPressed: () => context.read<AuthService>().logout(),
-            //   child: const Text("Sair"),
-            // )
+            FooterMenu(
+                () => {},
+                () => {},
+                () => {Navigator.of(context).pushNamed("/posting")},
+                () => {Navigator.of(context).pushNamed("/profile")})
           ],
         ),
       ),
