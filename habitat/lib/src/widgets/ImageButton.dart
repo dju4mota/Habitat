@@ -6,14 +6,22 @@ class ImageButton extends StatelessWidget {
   String image;
   Function onPressed;
   String label;
-  ImageButton(this.image, this.onPressed, this.label);
+  Color cor;
+  Color corFonte;
+  ImageButton(
+    this.image,
+    this.onPressed,
+    this.label, {
+    this.cor = const Color.fromARGB(255, 1, 48, 108),
+    this.corFonte = const Color.fromARGB(255, 220, 221, 203),
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 5.0),
       decoration: BoxDecoration(
-        color: Color.fromARGB(255, 1, 48, 108),
+        color: cor,
         borderRadius: BorderRadius.circular(20),
       ),
       child: Column(
@@ -30,9 +38,9 @@ class ImageButton extends StatelessWidget {
           ),
           Text(
             label,
-            style: const TextStyle(
+            style: TextStyle(
               fontSize: 20,
-              color: Color.fromARGB(255, 220, 221, 203),
+              color: corFonte,
             ),
           ),
         ],

@@ -4,6 +4,7 @@ import 'package:habitat/src/backend/AuthCheck.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/view/HomeView.dart';
 import 'package:habitat/src/view/LoginPage.dart';
+import 'package:habitat/src/view/PostingListView.dart';
 import 'package:habitat/src/view/PostingPlaceView.dart';
 import 'package:habitat/src/view/PostingView.dart';
 import 'package:habitat/src/view/ProfileView.dart';
@@ -43,6 +44,7 @@ class MyApp extends StatelessWidget {
         '/postingPlace': (context) => PostingPlaceView(),
         '/questionList': (context) => QuestionList(),
         '/profile': (context) => ProfileView(),
+        '/postingList': (context) => PostingListView(),
       },
       // home: AuthCheck(),
     );

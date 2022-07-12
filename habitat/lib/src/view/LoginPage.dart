@@ -57,14 +57,21 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: const Color.fromARGB(255, 220, 221, 203),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 100),
+          padding: const EdgeInsets.only(top: 50),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextButton(
-                child: const Icon(Icons.arrow_back),
+                child: const Icon(Icons.arrow_back, size: 30),
                 onPressed: () => {Navigator.of(context).pop()},
               ),
-              const Text("Login"),
+              // ignore: prefer_const_constructors
+              Padding(
+                padding: const EdgeInsets.fromLTRB(25.0, 0, 0, 0),
+                child: const Text("Login", style: TextStyle(fontSize: 45)),
+              ),
+              SizedBox(height: 100),
               Form(
                 key: formKey,
                 child: Column(
@@ -75,7 +82,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: TextFormField(
                         controller: emailController,
                         decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: null,
                           labelText: "Email institucional INATEL",
                         ),
                         keyboardType: TextInputType.emailAddress,
@@ -94,7 +101,7 @@ class _LoginPageState extends State<LoginPage> {
                         controller: passwordController,
                         obscureText: true,
                         decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                          border: null,
                           labelText: "Senha",
                         ),
                         validator: (value) {
@@ -107,16 +114,21 @@ class _LoginPageState extends State<LoginPage> {
                         },
                       ),
                     ),
-                    ButtonElipse(
-                      "Login",
-                      login,
-                      backgroundColor: const Color.fromARGB(255, 5, 54, 116),
-                      fontColor: const Color.fromARGB(255, 220, 221, 203),
+                    Padding(
+                      padding: const EdgeInsets.all(20.0),
+                      child: ButtonElipse(
+                        "Login",
+                        login,
+                        backgroundColor: const Color.fromARGB(255, 5, 54, 116),
+                        fontColor: const Color.fromARGB(255, 220, 221, 203),
+                      ),
                     )
                   ],
                 ),
               ),
+              SizedBox(height: 200),
               Row(
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Ainda não tem uma conta?"),
                   TextButton(

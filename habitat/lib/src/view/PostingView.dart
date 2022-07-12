@@ -9,38 +9,58 @@ class PostingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
-        children: [
-          Row(children: [
-            IconButton(
-                onPressed: (() => Navigator.of(context).pop()),
-                icon: Icon(Icons.cancel)),
-            ButtonElipse("Próximo",
-                () => {Navigator.of(context).pushNamed("/postingPlace")})
-          ]),
-          Form(
-            key: formKey,
-            child: Column(
+      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            const SizedBox(height: 50),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Image(image: AssetImage("assets/programming2.png")),
-                    TextFormField(
-                      controller: titleController,
-                      decoration:
-                          const InputDecoration(hintText: "Escolha um título"),
-                    ),
-                  ],
+                IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
-                TextFormField(
-                  controller: questionController,
-                  decoration:
-                      const InputDecoration(hintText: "Descreva sua pergunta"),
-                )
+                ButtonElipse(
+                  "Proximo",
+                  () {
+                    Navigator.of(context).pushNamed("/postingPlace");
+                  },
+                  width: 100,
+                  fontSize: 18,
+                  backgroundColor: const Color.fromARGB(255, 5, 54, 116),
+                  fontColor: const Color.fromARGB(255, 220, 221, 203),
+                ),
               ],
             ),
-          )
-        ],
+            Form(
+                key: formKey,
+                child: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        controller: titleController,
+                        decoration: const InputDecoration(
+                          labelText: "Título para sua pergunta",
+                          labelStyle: TextStyle(fontSize: 20),
+                          border: null,
+                        ),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: TextFormField(
+                        keyboardType: TextInputType.multiline,
+                        minLines: 2,
+                        maxLines: 15,
+                        controller: questionController,
+                      ),
+                    ),
+                  ],
+                ))
+          ],
+        ),
       ),
     );
   }
