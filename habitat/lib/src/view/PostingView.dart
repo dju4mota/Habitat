@@ -22,7 +22,7 @@ class PostingView extends StatelessWidget {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
                 ButtonElipse(
-                  "Proximo",
+                  "Próximo",
                   () {
                     Navigator.of(context).pushNamed("/postingPlace");
                   },

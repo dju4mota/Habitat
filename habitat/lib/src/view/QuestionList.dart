@@ -1,48 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/view/QuestionView.dart';
 
-class QuestionList extends StatelessWidget {
-  // final String subject;
-  List questions = [
-    "A",
-    "B",
-    "C",
-    "D",
-    "E",
-    "F",
-    "G",
-    "H",
-    "I",
-    "J",
-    "K",
-    "L",
-    "M",
-    "N",
-    "O",
-    "P",
-    "Q",
-    "R",
-    "S",
-    "T",
-    "U",
-    "V",
-    "W",
-    "X",
-    "Y",
-    "Z"
-  ];
-  // QuestionList(this.subject);
+class QuestionList extends StatefulWidget {
+  QuestionList({Key? key}) : super(key: key);
+
+  @override
+  State<QuestionList> createState() => _QuestionListState();
+}
+
+class _QuestionListState extends State<QuestionList> {
+  late FirebaseFirestore db = DBFirestore.get();
+
+  late AuthService auth;
+  List questions = [];
+
+  carregaLista() async {
+    questions.clear();
+    QuerySnapshot snapshot =
+        await db.collection('duvidas/C206/duvidasC206').get();
+    snapshot.docs.forEach((doc) {
+      int start = doc.data().toString().indexOf(":") + 1;
+      int end = doc.data().toString().length - 1;
+      String item = doc.data().toString().substring(start, end);
+      setState(() {
+        questions.add(item);
+      });
+      print(item);
+    });
+  }
+
+  _QuestionListState() {
+    carregaLista();
+  }
 
   @override
   Widget build(BuildContext context) {
+    print(questions.length);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 220, 221, 203),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           IconButton(
