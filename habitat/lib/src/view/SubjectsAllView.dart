@@ -3,49 +3,48 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:habitat/src/backend/AuthService.dart';
-import 'package:habitat/src/backend/db_firestore.dart';
-import 'package:habitat/src/models/Question.dart';
-import 'package:habitat/src/view/QuestionView.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:habitat/src/models/Subjects.dart';
+import 'package:habitat/src/view/QuestionList.dart';
 
-class QuestionList extends StatefulWidget {
-  QuestionList({Key? key}) : super(key: key);
+import '../backend/AuthService.dart';
+import '../backend/db_firestore.dart';
 
+class SubjectsAllView extends StatefulWidget {
   @override
-  State<QuestionList> createState() => _QuestionListState();
+  State<SubjectsAllView> createState() => _SubjectsAllViewState();
 }
 
-class _QuestionListState extends State<QuestionList> {
+class _SubjectsAllViewState extends State<SubjectsAllView> {
   late FirebaseFirestore db = DBFirestore.get();
 
   late AuthService auth;
-  List<Question> questions = [];
+  List<Subject> subjects = [];
 
   carregaLista() async {
-    questions.clear();
-    QuerySnapshot snapshot =
-        await db.collection('duvidas/C206/duvidasC206').get();
+    subjects.clear();
+    QuerySnapshot snapshot = await db.collection('Faculdade/inatel/subjects').get();
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
+
       final LinkedHashMap json = jsonDecode(doc.data().toString());
       setState(() {
-        questions.add(Question(
-            title: json["titulo"],
-            Id: json["id"],
-            description: json["descricao"]));
+        subjects.add(Subject(
+          title: json["title"],
+        ));
       });
-      print(questions);
+      print(subjects);
     });
   }
 
-  _QuestionListState() {
+  _SubjectsAllViewState() {
     carregaLista();
   }
 
   @override
   Widget build(BuildContext context) {
-    print(questions.length);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 220, 221, 203),
       body: Column(
@@ -54,17 +53,15 @@ class _QuestionListState extends State<QuestionList> {
           const SizedBox(
             height: 40,
           ),
-          IconButton(
-              onPressed: () => {Navigator.of(context).pop()},
-              icon: Icon(Icons.arrow_back)),
+          IconButton(onPressed: () => {Navigator.of(context).pop()}, icon: Icon(Icons.arrow_back)),
           Center(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
               child: ListView.builder(
-                itemCount: questions.length,
+                itemCount: subjects.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ItemList(questions[index]),
+                    title: ItemList(subjects[index]),
                   );
                 },
               ),
@@ -77,8 +74,8 @@ class _QuestionListState extends State<QuestionList> {
 }
 
 class ItemList extends StatelessWidget {
-  Question question;
-  ItemList(this.question);
+  Subject subject;
+  ItemList(this.subject);
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +83,7 @@ class ItemList extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
-          question.title,
+          subject.title,
           style: TextStyle(
             color: Color.fromARGB(255, 5, 54, 116),
           ),
@@ -96,9 +93,9 @@ class ItemList extends StatelessWidget {
           onPressed: () {
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => QuestionView(
-                  question: question,
-                ),
+                builder: (context) => QuestionList(
+                    // question: question,
+                    ),
               ),
             );
           },

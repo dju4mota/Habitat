@@ -26,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const SizedBox(
               // não sei se funciona para todo celular
@@ -34,6 +34,7 @@ class _HomeViewState extends State<HomeView> {
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              // ignore: prefer_const_literals_to_create_immutables
               children: [
                 const Text(
                   'Olá, Fernando!',
@@ -93,34 +94,32 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ],
             ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                TextButton(
+                    onPressed: () => {Navigator.of(context).pushNamed("/subjectsall")}, child: Text("Exibir todas"))
+              ],
+            ),
             // carrossel com imagens
             Container(
-              height: 390,
+              height: 350,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ImageButton("assets/programming2.png",
-                            () => {openQuestionView(context)}, "C204"),
-                        ImageButton(
-                            "assets/circuit-board2.png", () => {}, "E209"),
-                      ]),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        ImageButton("assets/maths2.png", () => {}, "M005"),
-                        ImageButton("assets/anatomia2.png", () => {}, "B023"),
-                      ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                    ImageButton("assets/programming2.png", () => {openQuestionView(context)}, "C204"),
+                    ImageButton("assets/circuit-board2.png", () => {}, "E209"),
+                  ]),
+                  Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+                    ImageButton("assets/maths2.png", () => {}, "M005"),
+                    ImageButton("assets/anatomia2.png", () => {}, "B023"),
+                  ]),
                 ],
               ),
             ),
             // 4 buttons com nagivator
-            FooterMenu(
-                () => {},
-                () => {},
-                () => {Navigator.of(context).pushNamed("/posting")},
+            FooterMenu(() => {}, () => {}, () => {Navigator.of(context).pushNamed("/posting")},
                 () => {Navigator.of(context).pushNamed("/profile")})
           ],
         ),

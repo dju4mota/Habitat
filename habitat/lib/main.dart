@@ -10,6 +10,7 @@ import 'package:habitat/src/view/PostingView.dart';
 import 'package:habitat/src/view/ProfileView.dart';
 import 'package:habitat/src/view/QuestionList.dart';
 import 'package:habitat/src/view/RegisterView.dart';
+import 'package:habitat/src/view/SubjectsAllView.dart';
 import 'package:provider/provider.dart';
 
 Future<void> main() async {
@@ -45,6 +46,7 @@ class MyApp extends StatelessWidget {
         '/questionList': (context) => QuestionList(),
         '/profile': (context) => ProfileView(),
         '/postingList': (context) => PostingListView(),
+        '/subjectsall': (context) => SubjectsAllView(),
       },
       // home: AuthCheck(),
     );
