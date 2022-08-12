@@ -23,17 +23,13 @@ class _QuestionListState extends State<QuestionList> {
 
   carregaLista() async {
     questions.clear();
-    QuerySnapshot snapshot =
-        await db.collection('duvidas/C206/duvidasC206').get();
+    QuerySnapshot snapshot = await db.collection('/Faculdade/inatel/subjects/c206/questions').get();
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
       final LinkedHashMap json = jsonDecode(doc.data().toString());
       setState(() {
-        questions.add(Question(
-            title: json["titulo"],
-            Id: json["id"],
-            description: json["descricao"]));
+        questions.add(Question(title: json["titulo"], Id: json["id"], description: json["descricao"]));
       });
       print(questions);
     });
@@ -54,9 +50,7 @@ class _QuestionListState extends State<QuestionList> {
           const SizedBox(
             height: 40,
           ),
-          IconButton(
-              onPressed: () => {Navigator.of(context).pop()},
-              icon: Icon(Icons.arrow_back)),
+          IconButton(onPressed: () => {Navigator.of(context).pop()}, icon: Icon(Icons.arrow_back)),
           Center(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,

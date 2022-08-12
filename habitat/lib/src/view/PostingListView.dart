@@ -1,23 +1,42 @@
+import 'dart:collection';
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/widgets/ImageButton.dart';
 
+import '../models/Subjects.dart';
 import '../widgets/ButtonElipse.dart';
 
-class PostingListView extends StatelessWidget {
-  List materias = [
-    "C204 - Alg 3 ",
-    "E207 - Elt. Digital 1",
-    "M004 - Cálculo 2",
-    "F207 - Física",
-    "C204 - Alg 3 ",
-    "E207 - Elt. Digital 1",
-    "M004 - Cálculo 2",
-    "F207 - Física",
-    "C204 - Alg 3 ",
-    "E207 - Elt. Digital 1",
-    "M004 - Cálculo 2",
-    "F207 - Física",
-  ];
+class PostingListView extends StatefulWidget {
+  @override
+  State<PostingListView> createState() => _PostingListViewState();
+}
+
+class _PostingListViewState extends State<PostingListView> {
+  late FirebaseFirestore db = DBFirestore.get();
+
+  List<Subject> subjects = [];
+
+  carregaLista() async {
+    subjects.clear();
+    QuerySnapshot snapshot = await db.collection('Faculdade/inatel/subjects').get();
+
+    snapshot.docs.forEach((doc) {
+      final LinkedHashMap json = jsonDecode(doc.data().toString());
+      // print(json["title"].toString());
+      setState(() {
+        subjects.add(Subject(
+          title: json["title"].toString(),
+        ));
+      });
+    });
+  }
+
+  _PostingListViewState() {
+    carregaLista();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +59,10 @@ class PostingListView extends StatelessWidget {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.76,
             child: ListView.builder(
-              itemCount: materias.length,
+              itemCount: subjects.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Materia(materias[index]),
+                  title: Materia(subjects[index].title),
                 );
               },
             ),
@@ -53,7 +72,14 @@ class PostingListView extends StatelessWidget {
             children: [
               ButtonElipse(
                 "Postar",
-                () => {},
+                () => {
+                  // for (var i = 0; i < subjects.length; i++)
+                  //   {
+                  //     db.collection("/Faculdade/inatel/subjects/").doc("${subjects[i]}").set({
+                  //       '"title"': '"${subjects[i]}"',
+                  //     })
+                  //   }
+                },
                 width: 100,
                 fontSize: 20,
                 backgroundColor: const Color.fromARGB(255, 5, 54, 116),

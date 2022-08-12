@@ -27,15 +27,13 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
     QuerySnapshot snapshot = await db.collection('Faculdade/inatel/subjects').get();
 
     snapshot.docs.forEach((doc) {
-      // final json = jsonDecode(doc.data().toString());
-
       final LinkedHashMap json = jsonDecode(doc.data().toString());
+      // print(json["title"].toString());
       setState(() {
         subjects.add(Subject(
-          title: json["title"],
+          title: json["title"].toString(),
         ));
       });
-      print(subjects);
     });
   }
 
