@@ -11,6 +11,7 @@ import 'package:habitat/src/view/QuestionList.dart';
 
 import '../backend/AuthService.dart';
 import '../backend/db_firestore.dart';
+import '../widgets/ListItemSubject.dart';
 
 class SubjectsAllView extends StatefulWidget {
   @override
@@ -84,27 +85,6 @@ class ItemList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          subject.title,
-          style: TextStyle(
-            color: Color.fromARGB(255, 5, 54, 116),
-          ),
-        ),
-        IconButton(
-          icon: Icon(Icons.arrow_right_alt_sharp),
-          onPressed: () {
-            saveSubejectToShow(subject);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => QuestionList(),
-              ),
-            );
-          },
-        )
-      ],
-    );
+    return ListItemCus(subject: subject, function: saveSubejectToShow);
   }
 }

@@ -8,6 +8,7 @@ import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Question.dart';
 import 'package:habitat/src/view/QuestionView.dart';
+import 'package:habitat/src/widgets/QuestionItemList.dart';
 
 class QuestionList extends StatefulWidget {
   QuestionList({Key? key}) : super(key: key);
@@ -25,6 +26,15 @@ class _QuestionListState extends State<QuestionList> {
 
   saveQuestionToShow(Question question) {
     control.question = question;
+  }
+
+  openQuestion(Question question) {
+    saveQuestionToShow(question);
+    Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (context) => QuestionView(),
+      ),
+    );
   }
 
   carregaLista() async {
@@ -67,7 +77,7 @@ class _QuestionListState extends State<QuestionList> {
                 itemCount: questions.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ItemList(questions[index], saveQuestionToShow),
+                    title: ItemList(questions[index], openQuestion),
                   );
                 },
               ),
@@ -81,32 +91,14 @@ class _QuestionListState extends State<QuestionList> {
 
 class ItemList extends StatelessWidget {
   Question question;
-  Function saveQuestionToShow;
-  ItemList(this.question, this.saveQuestionToShow);
+  Function openQuestion;
+  ItemList(this.question, this.openQuestion);
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Text(
-          question.title,
-          style: TextStyle(
-            color: Color.fromARGB(255, 5, 54, 116),
-          ),
-        ),
-        IconButton(
-          icon: Icon(Icons.arrow_right_alt_sharp),
-          onPressed: () {
-            saveQuestionToShow(question);
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => QuestionView(),
-              ),
-            );
-          },
-        )
-      ],
+      children: [QuestionItemList(question, openQuestion)],
     );
   }
 }

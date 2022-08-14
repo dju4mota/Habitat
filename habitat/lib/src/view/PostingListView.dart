@@ -96,14 +96,6 @@ class _PostingListViewState extends State<PostingListView> {
           //         //       '"title"': '"${subjects[i]}"',
           //         //     })
           //         //   }
-          //         // db
-          //         //     .collection("/Faculdade/inatel/subjects/${subjectToPostOn.title}/questions")
-          //         //     .doc(control.question.Id)
-          //         //     .set({
-          //         //   '"title"': '"${control.question.title}"',
-          //         //   '"description"': '"${control.question.description}"',
-          //         // })
-          //       },
           //       width: 100,
           //       fontSize: 20,
           //       backgroundColor: const Color.fromARGB(255, 5, 54, 116),
