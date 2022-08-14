@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 
+import '../controler/QuestionPostingControl.dart';
+import '../models/Question.dart';
+import 'package:uuid/uuid.dart';
+
 class PostingView extends StatelessWidget {
   final formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final questionController = TextEditingController();
+
+  final control = QuestionPostingControl();
+  final uuid = Uuid();
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +31,11 @@ class PostingView extends StatelessWidget {
                 ButtonElipse(
                   "Próximo",
                   () {
+                    control.question = Question(
+                      id: uuid.v4(),
+                      title: titleController.text,
+                      description: questionController.text,
+                    );
                     Navigator.of(context).pushNamed("/postingPlace");
                   },
                   width: 100,

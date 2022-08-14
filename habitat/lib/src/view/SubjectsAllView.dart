@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Subjects.dart';
 import 'package:habitat/src/view/QuestionList.dart';
 
@@ -20,7 +21,12 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
   late FirebaseFirestore db = DBFirestore.get();
 
   late AuthService auth;
+  ReadController control = ReadController();
   List<Subject> subjects = [];
+
+  saveSubjectToShow(Subject subject) {
+    control.subject = subject;
+  }
 
   carregaLista() async {
     subjects.clear();
@@ -59,7 +65,7 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
                 itemCount: subjects.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ItemList(subjects[index]),
+                    title: ItemList(subjects[index], saveSubjectToShow),
                   );
                 },
               ),
@@ -73,7 +79,8 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
 
 class ItemList extends StatelessWidget {
   Subject subject;
-  ItemList(this.subject);
+  Function saveSubejectToShow;
+  ItemList(this.subject, this.saveSubejectToShow);
 
   @override
   Widget build(BuildContext context) {
@@ -89,11 +96,10 @@ class ItemList extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.arrow_right_alt_sharp),
           onPressed: () {
+            saveSubejectToShow(subject);
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => QuestionList(
-                    // question: question,
-                    ),
+                builder: (context) => QuestionList(),
               ),
             );
           },

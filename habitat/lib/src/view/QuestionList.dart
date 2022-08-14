@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
+import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Question.dart';
 import 'package:habitat/src/view/QuestionView.dart';
 
@@ -18,20 +19,28 @@ class QuestionList extends StatefulWidget {
 class _QuestionListState extends State<QuestionList> {
   late FirebaseFirestore db = DBFirestore.get();
 
+  ReadController control = ReadController();
   late AuthService auth;
   List<Question> questions = [];
 
+  saveQuestionToShow(Question question) {
+    control.question = question;
+  }
+
   carregaLista() async {
     questions.clear();
-    QuerySnapshot snapshot = await db.collection('/Faculdade/inatel/subjects/c206/questions').get();
+    print(control.subject.title);
+    QuerySnapshot snapshot = await db.collection('/Faculdade/inatel/subjects/${control.subject.title}/questions').get();
+    print(snapshot.docs);
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
       final LinkedHashMap json = jsonDecode(doc.data().toString());
+      print(json["id"]);
       setState(() {
-        questions.add(Question(title: json["titulo"], Id: json["id"], description: json["descricao"]));
+        questions.add(Question(title: json["title"], id: json["id"], description: json["description"]));
       });
-      print(questions);
+      print("questions: ${questions}");
     });
   }
 
@@ -58,7 +67,7 @@ class _QuestionListState extends State<QuestionList> {
                 itemCount: questions.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ItemList(questions[index]),
+                    title: ItemList(questions[index], saveQuestionToShow),
                   );
                 },
               ),
@@ -72,7 +81,8 @@ class _QuestionListState extends State<QuestionList> {
 
 class ItemList extends StatelessWidget {
   Question question;
-  ItemList(this.question);
+  Function saveQuestionToShow;
+  ItemList(this.question, this.saveQuestionToShow);
 
   @override
   Widget build(BuildContext context) {
@@ -88,11 +98,10 @@ class ItemList extends StatelessWidget {
         IconButton(
           icon: Icon(Icons.arrow_right_alt_sharp),
           onPressed: () {
+            saveQuestionToShow(question);
             Navigator.of(context).push(
               MaterialPageRoute(
-                builder: (context) => QuestionView(
-                  question: question,
-                ),
+                builder: (context) => QuestionView(),
               ),
             );
           },

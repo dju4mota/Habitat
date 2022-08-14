@@ -1,7 +1,7 @@
 class Question {
   late String title;
   late String description;
-  late String Id;
+  late String id;
 
-  Question({required this.title, required this.description, required this.Id});
+  Question({required this.title, required this.description, required this.id});
 }
