@@ -39,18 +39,14 @@ class _QuestionListState extends State<QuestionList> {
 
   carregaLista() async {
     questions.clear();
-    print(control.subject.title);
     QuerySnapshot snapshot = await db.collection('/Faculdade/inatel/subjects/${control.subject.title}/questions').get();
-    print(snapshot.docs);
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
       final LinkedHashMap json = jsonDecode(doc.data().toString());
-      print(json["id"]);
       setState(() {
         questions.add(Question(title: json["title"], id: json["id"], description: json["description"]));
       });
-      print("questions: ${questions}");
     });
   }
 
@@ -60,7 +56,6 @@ class _QuestionListState extends State<QuestionList> {
 
   @override
   Widget build(BuildContext context) {
-    print(questions.length);
     return Scaffold(
       backgroundColor: Color.fromARGB(255, 220, 221, 203),
       body: Column(
@@ -70,6 +65,11 @@ class _QuestionListState extends State<QuestionList> {
             height: 40,
           ),
           IconButton(onPressed: () => {Navigator.of(context).pop()}, icon: Icon(Icons.arrow_back)),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(20.0, 5, 5, 5),
+            child: Text("Dúvidas de ${control.subject.title}",
+                style: TextStyle(fontSize: 30, color: Color.fromARGB(255, 5, 54, 116))),
+          ),
           Center(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,

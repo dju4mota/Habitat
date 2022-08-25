@@ -29,7 +29,10 @@ class QuestionItemList extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(question.title, style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116))),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 5, 5, 5),
+                  child: Text(question.title, style: TextStyle(fontSize: 24, color: Color.fromARGB(255, 5, 54, 116))),
+                ),
                 IconButton(
                     onPressed: () {
                       function(question);
@@ -38,8 +41,8 @@ class QuestionItemList extends StatelessWidget {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(question.description, style: TextStyle(fontSize: 15, color: Color.fromARGB(255, 5, 54, 116))),
+              padding: const EdgeInsets.fromLTRB(20.0, 5, 5, 20.0),
+              child: Text(question.description, style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116))),
             ),
           ],
         ),

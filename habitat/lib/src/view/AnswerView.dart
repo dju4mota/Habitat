@@ -24,7 +24,7 @@ class _AnswerViewState extends State<AnswerView> {
 
   postAnswer() {
     createAnswer(context);
-    Navigator.popUntil(context, ModalRoute.withName('/home'));
+    // Navigator.popUntil(context, ModalRoute.withName('/home'));
   }
 
   createAnswer(BuildContext context) {
