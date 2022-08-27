@@ -1,9 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_login/flutter_login.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
+import 'package:provider/provider.dart';
+import 'package:typesense/typesense.dart';
 
+import '../backend/AuthService.dart';
 import '../backend/db_firestore.dart';
+import '../backend/typeSenseConfig.dart';
 import '../models/Answer.dart';
 import 'package:uuid/uuid.dart';
 
@@ -14,7 +20,8 @@ class AnswerView extends StatefulWidget {
 
 class _AnswerViewState extends State<AnswerView> {
   final formKey = GlobalKey<FormState>();
-
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  Client client = TypeSenseInstance().client;
   late FirebaseFirestore db = DBFirestore.get();
 
   final titleController = TextEditingController();
@@ -27,8 +34,8 @@ class _AnswerViewState extends State<AnswerView> {
     // Navigator.popUntil(context, ModalRoute.withName('/home'));
   }
 
-  createAnswer(BuildContext context) {
-    db
+  createAnswer(BuildContext context) async {
+    await db
         .collection(
             "/Faculdade/inatel/subjects/${readControl.subject.title}/questions/${readControl.question.id}/answers")
         .doc(readControl.answer.id)
@@ -36,7 +43,16 @@ class _AnswerViewState extends State<AnswerView> {
       '"title"': '"${readControl.answer.title}"',
       '"description"': '"${readControl.answer.description}"',
       '"id"': '"${readControl.answer.id}"',
+      '"userId"': '"${readControl.answer.userId}"',
     });
+    await client.collection("answers").documents.create(
+      {
+        '"title"': '"${readControl.question.title}"',
+        '"description"': '"${readControl.question.description}"',
+        '"id"': '"${readControl.question.id}"',
+        '"userId"': '"${readControl.question.userId}"',
+      },
+    );
   }
 
   @override
@@ -61,6 +77,7 @@ class _AnswerViewState extends State<AnswerView> {
                       id: uuid.v4(),
                       title: titleController.text,
                       description: answerController.text,
+                      userId: _auth.currentUser!.uid,
                     );
                     postAnswer();
                     Navigator.of(context).pop();

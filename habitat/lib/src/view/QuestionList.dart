@@ -45,7 +45,8 @@ class _QuestionListState extends State<QuestionList> {
       // final json = jsonDecode(doc.data().toString());
       final LinkedHashMap json = jsonDecode(doc.data().toString());
       setState(() {
-        questions.add(Question(title: json["title"], id: json["id"], description: json["description"]));
+        questions.add(
+            Question(title: json["title"], id: json["id"], description: json["description"], userId: json["userId"]));
       });
     });
   }

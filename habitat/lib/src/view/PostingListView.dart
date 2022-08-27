@@ -6,10 +6,10 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/QuestionPostingControl.dart';
-import 'package:habitat/src/widgets/ImageButton.dart';
+import 'package:typesense/typesense.dart';
 
+import '../backend/typeSenseConfig.dart';
 import '../models/Subjects.dart';
-import '../widgets/ButtonElipse.dart';
 
 class PostingListView extends StatefulWidget {
   @override
@@ -18,6 +18,7 @@ class PostingListView extends StatefulWidget {
 
 class _PostingListViewState extends State<PostingListView> {
   late FirebaseFirestore db = DBFirestore.get();
+  Client client = TypeSenseInstance().client;
   final QuestionPostingControl control = QuestionPostingControl();
 
   List<Subject> subjects = [];
@@ -25,15 +26,26 @@ class _PostingListViewState extends State<PostingListView> {
 
   postQuestion(String subjectTitle) {
     createQuetion(context, subjectTitle);
-    Navigator.popUntil(context, ModalRoute.withName('/home'));
+    // Navigator.popUntil(context, ModalRoute.withName('/home'));
   }
 
-  createQuetion(BuildContext context, String subjectTitle) {
-    db.collection("/Faculdade/inatel/subjects/${subjectTitle}/questions").doc(control.question.id).set({
+  createQuetion(BuildContext context, String subjectTitle) async {
+    await db.collection("/Faculdade/inatel/subjects/${subjectTitle}/questions").doc(control.question.id).set({
       '"title"': '"${control.question.title}"',
       '"description"': '"${control.question.description}"',
       '"id"': '"${control.question.id}"',
+      '"userId"': '"${control.question.userId}"',
     });
+    await client.collection("questions").documents.create(
+      {
+        '"title"': '"${control.question.title}"',
+        '"description"': '"${control.question.description}"',
+        '"id"': '"${control.question.id}"',
+        '"userId"': '"${control.question.userId}"',
+      },
+    );
+
+    Navigator.of(context).pushReplacementNamed("/home");
   }
 
   carregaLista() async {

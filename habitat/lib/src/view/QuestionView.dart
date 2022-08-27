@@ -37,7 +37,8 @@ class _QuestionViewState extends State<QuestionView> {
       final LinkedHashMap json = jsonDecode(doc.data().toString());
 
       setState(() {
-        answers.add(Answer(title: json["title"], id: json["id"], description: json["description"]));
+        answers.add(
+            Answer(title: json["title"], id: json["id"], description: json["description"], userId: json["userId"]));
       });
     });
   }

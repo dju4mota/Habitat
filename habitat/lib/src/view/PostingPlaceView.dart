@@ -40,7 +40,7 @@ class PostingPlaceView extends StatelessWidget {
               ),
               child: ImageButton(
                 "assets/university1.png",
-                () => {Navigator.of(context).pushNamed("/postingList")},
+                () => {Navigator.of(context).pushReplacementNamed("/postingList")},
                 "Faculdade",
                 cor: const Color.fromARGB(255, 220, 221, 203),
                 corFonte: Color.fromARGB(255, 1, 0, 6),

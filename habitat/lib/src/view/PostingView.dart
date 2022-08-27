@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 
@@ -11,6 +12,7 @@ class PostingView extends StatelessWidget {
   final questionController = TextEditingController();
 
   final control = QuestionPostingControl();
+  FirebaseAuth _auth = FirebaseAuth.instance;
   final uuid = Uuid();
 
   @override
@@ -26,7 +28,7 @@ class PostingView extends StatelessWidget {
               children: [
                 IconButton(
                   icon: Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () => Navigator.of(context).dispose(),
                 ),
                 ButtonElipse(
                   "Próximo",
@@ -35,8 +37,9 @@ class PostingView extends StatelessWidget {
                       id: uuid.v4(),
                       title: titleController.text,
                       description: questionController.text,
+                      userId: _auth.currentUser!.uid,
                     );
-                    Navigator.of(context).pushNamed("/postingPlace");
+                    Navigator.of(context).pushReplacementNamed("/postingPlace");
                   },
                   width: 100,
                   fontSize: 18,

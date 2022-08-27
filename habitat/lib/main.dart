@@ -12,6 +12,7 @@ import 'package:habitat/src/view/ProfileView.dart';
 import 'package:habitat/src/view/QuestionList.dart';
 import 'package:habitat/src/view/QuestionView.dart';
 import 'package:habitat/src/view/RegisterView.dart';
+import 'package:habitat/src/view/StartView.dart';
 import 'package:habitat/src/view/SubjectsAllView.dart';
 import 'package:provider/provider.dart';
 
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => AuthCheck(),
         '/login': (context) => LoginPage(),
+        '/start': (context) => StartView(),
         '/register': (context) => RegisterView(),
         '/home': (context) => HomeView(),
         '/posting': (context) => PostingView(),
