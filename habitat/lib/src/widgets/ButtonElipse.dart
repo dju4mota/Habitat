@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class ButtonElipse extends StatelessWidget {
+class ButtonElipse extends StatefulWidget {
   String text;
   Color backgroundColor;
   Color fontColor;
@@ -18,28 +18,30 @@ class ButtonElipse extends StatelessWidget {
   });
 
   @override
+  State<ButtonElipse> createState() => _ButtonElipseState();
+}
+
+class _ButtonElipseState extends State<ButtonElipse> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: SizedBox(
-        width: width,
+        width: widget.width,
         child: ElevatedButton(
           onPressed: () {
-            this.route();
+            this.widget.route();
           },
           child: Text(
-            text,
-            style: TextStyle(
-                fontSize: fontSize,
-                color: fontColor,
-                fontWeight: FontWeight.w400),
+            widget.text,
+            style: TextStyle(fontSize: widget.fontSize, color: widget.fontColor, fontWeight: FontWeight.w400),
           ),
           style: ElevatedButton.styleFrom(
-              primary: backgroundColor,
+              primary: widget.backgroundColor,
               padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 4),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(30),
-                side: BorderSide(color: fontColor),
+                side: BorderSide(color: widget.fontColor),
               )),
         ),
       ),

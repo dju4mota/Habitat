@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/ReadController.dart';
-import 'package:habitat/src/models/Question.dart';
+import 'package:habitat/src/models/Content.dart';
 import 'package:habitat/src/view/QuestionView.dart';
 import 'package:habitat/src/widgets/QuestionItemList.dart';
 
@@ -22,13 +22,13 @@ class _QuestionListState extends State<QuestionList> {
 
   ReadController control = ReadController();
   late AuthService auth;
-  List<Question> questions = [];
+  List<Content> questions = [];
 
-  saveQuestionToShow(Question question) {
+  saveQuestionToShow(Content question) {
     control.question = question;
   }
 
-  openQuestion(Question question) {
+  openQuestion(Content question) {
     saveQuestionToShow(question);
     Navigator.of(context).push(
       MaterialPageRoute(
@@ -46,7 +46,7 @@ class _QuestionListState extends State<QuestionList> {
       final LinkedHashMap json = jsonDecode(doc.data().toString());
       setState(() {
         questions.add(
-            Question(title: json["title"], id: json["id"], description: json["description"], userId: json["userId"]));
+            Content(title: json["title"], id: json["id"], description: json["description"], userId: json["userId"]));
       });
     });
   }
@@ -75,6 +75,7 @@ class _QuestionListState extends State<QuestionList> {
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
               child: ListView.builder(
+                padding: EdgeInsets.all(0),
                 itemCount: questions.length,
                 itemBuilder: (context, index) {
                   return ListTile(
@@ -91,7 +92,7 @@ class _QuestionListState extends State<QuestionList> {
 }
 
 class ItemList extends StatelessWidget {
-  Question question;
+  Content question;
   Function openQuestion;
   ItemList(this.question, this.openQuestion);
 

@@ -1,9 +1,9 @@
-import 'package:habitat/src/models/Question.dart';
+import 'package:habitat/src/models/Content.dart';
 
 class QuestionPostingControl {
   static final QuestionPostingControl _control = QuestionPostingControl._internal();
 
-  late Question question;
+  late Content question;
 
   factory QuestionPostingControl() {
     return _control;

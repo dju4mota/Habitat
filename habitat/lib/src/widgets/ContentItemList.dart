@@ -5,10 +5,11 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:habitat/src/models/Content.dart';
 
-class QuestionItemList extends StatelessWidget {
+class ContentItemList extends StatelessWidget {
   Content content;
-  Function function;
-  QuestionItemList(this.content, this.function);
+  Function openContent;
+  Function deleteContent;
+  ContentItemList(this.content, this.openContent, this.deleteContent);
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +41,7 @@ class QuestionItemList extends StatelessWidget {
                   ),
                   IconButton(
                       onPressed: () {
-                        function(content);
+                        openContent(content);
                       },
                       icon: Icon(Icons.arrow_forward))
                 ],
@@ -49,9 +50,23 @@ class QuestionItemList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 5, 5, 20.0),
               child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.7,
-                  child: Text(content.description,
-                      style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116)))),
+                  width: MediaQuery.of(context).size.width * 0.9,
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width * 0.62,
+                        child: Text(
+                          content.description,
+                          style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116)),
+                        ),
+                      ),
+                      IconButton(
+                          onPressed: () {
+                            deleteContent(content);
+                          },
+                          icon: Icon(Icons.delete))
+                    ],
+                  )),
             ),
           ],
         ),

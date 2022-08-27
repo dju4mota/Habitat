@@ -88,6 +88,7 @@ class _PostingListViewState extends State<PostingListView> {
           SizedBox(
             height: MediaQuery.of(context).size.height * 0.82,
             child: ListView.builder(
+              padding: EdgeInsets.all(0),
               itemCount: subjects.length,
               itemBuilder: (context, index) {
                 return ListTile(

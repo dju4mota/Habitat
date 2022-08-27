@@ -8,7 +8,7 @@ import 'package:habitat/src/models/Answer.dart';
 
 import '../backend/AuthService.dart';
 import '../backend/db_firestore.dart';
-import '../models/Question.dart';
+import '../models/Content.dart';
 import '../widgets/AnswertemList.dart';
 
 class QuestionView extends StatefulWidget {
@@ -21,9 +21,9 @@ class _QuestionViewState extends State<QuestionView> {
   late FirebaseFirestore db = DBFirestore.get();
   late AuthService auth;
 
-  late final Question question = control.question;
+  late final Content question = control.question;
 
-  List<Answer> answers = [];
+  List<Content> answers = [];
 
   carregaLista() async {
     answers.clear();
@@ -38,7 +38,7 @@ class _QuestionViewState extends State<QuestionView> {
 
       setState(() {
         answers.add(
-            Answer(title: json["title"], id: json["id"], description: json["description"], userId: json["userId"]));
+            Content(title: json["title"], id: json["id"], description: json["description"], userId: json["userId"]));
       });
     });
   }
@@ -105,7 +105,7 @@ class _QuestionViewState extends State<QuestionView> {
 }
 
 class ItemList extends StatelessWidget {
-  Answer answer;
+  Content answer;
 
   ItemList(this.answer);
 

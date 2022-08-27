@@ -63,6 +63,7 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,
               child: ListView.builder(
+                padding: EdgeInsets.all(0),
                 itemCount: subjects.length,
                 itemBuilder: (context, index) {
                   return ListTile(

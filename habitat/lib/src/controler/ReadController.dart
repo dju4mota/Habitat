@@ -1,4 +1,4 @@
-import 'package:habitat/src/models/Question.dart';
+import 'package:habitat/src/models/Content.dart';
 import 'package:habitat/src/models/Subjects.dart';
 
 import '../models/Answer.dart';
@@ -7,8 +7,8 @@ class ReadController {
   static final ReadController _control = ReadController._internal();
 
   late Subject subject;
-  late Question question;
-  late Answer answer;
+  late Content question;
+  late Content answer;
 
   factory ReadController() {
     return _control;

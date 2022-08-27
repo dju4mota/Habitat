@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:habitat/src/controler/ReadController.dart';
+import 'package:habitat/src/models/Content.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:provider/provider.dart';
 import 'package:typesense/typesense.dart';
@@ -73,7 +74,7 @@ class _AnswerViewState extends State<AnswerView> {
                 ButtonElipse(
                   "Responder",
                   () {
-                    readControl.answer = Answer(
+                    readControl.answer = Content(
                       id: uuid.v4(),
                       title: titleController.text,
                       description: answerController.text,

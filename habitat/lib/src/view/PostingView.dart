@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 
 import '../controler/QuestionPostingControl.dart';
-import '../models/Question.dart';
+import '../models/Content.dart';
 import 'package:uuid/uuid.dart';
 
 class PostingView extends StatelessWidget {
@@ -33,7 +33,7 @@ class PostingView extends StatelessWidget {
                 ButtonElipse(
                   "Próximo",
                   () {
-                    control.question = Question(
+                    control.question = Content(
                       id: uuid.v4(),
                       title: titleController.text,
                       description: questionController.text,
