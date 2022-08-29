@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ImageButton.dart';
 
 import '../widgets/ButtonElipse.dart';
@@ -11,7 +12,7 @@ class PostingPlaceView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         // mainAxisAlignment: MainAxisAlignment.spaceAround,

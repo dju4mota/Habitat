@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:habitat/src/utils/utils.dart';
 
 import '../models/Subjects.dart';
 import '../view/QuestionList.dart';
@@ -18,10 +19,10 @@ class ListItemCus extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 220, 221, 203),
+        color: Util.fundoClaro,
         border: Border.all(
           width: 2,
-          color: Color.fromARGB(255, 5, 54, 116),
+          color: Util.azulEscuroBotao,
         ),
         borderRadius: BorderRadius.circular(20),
       ),

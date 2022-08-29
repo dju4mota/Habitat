@@ -7,6 +7,7 @@ import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Content.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/view/QuestionView.dart';
 import 'package:habitat/src/widgets/QuestionItemList.dart';
 
@@ -62,7 +63,7 @@ class _QuestionListState extends State<QuestionList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import '../utils/utils.dart';
+
 class ButtonElipse extends StatefulWidget {
   String text;
   Color backgroundColor;
@@ -13,8 +15,8 @@ class ButtonElipse extends StatefulWidget {
     this.route, {
     this.width = 350,
     this.fontSize = 30,
-    this.backgroundColor = const Color.fromARGB(255, 220, 221, 203),
-    this.fontColor = const Color.fromARGB(255, 1, 48, 108),
+    this.backgroundColor = Util.fundoClaro,
+    this.fontColor = Util.azulEscuroBotao,
   });
 
   @override

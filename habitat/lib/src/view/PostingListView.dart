@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/QuestionPostingControl.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:typesense/typesense.dart';
 
 import '../backend/typeSenseConfig.dart';
@@ -73,7 +74,7 @@ class _PostingListViewState extends State<PostingListView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,

@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/view/QuestionList.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:habitat/src/widgets/FooterMenu.dart';
@@ -32,7 +33,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 221, 231, 240),
+      backgroundColor: Util.azulClaroFundo,
       body: Padding(
         padding: const EdgeInsets.all(17.0),
         child: Column(
@@ -48,17 +49,17 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Text(
                   'Olá, ${UserDB.name}',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.w400,
                     // fontFamily: 'Inter',
-                    color: Color.fromARGB(255, 5, 54, 116),
+                    color: Util.azulEscuroBotao,
                   ),
                 ),
               ],
             ),
 
-            const Text(
+            Text(
               "Como podemos te ajudar hoje para fazer da faculdade e da cidade um perfeito Habitat para você? ",
               textAlign: TextAlign.justify,
               style: TextStyle(
@@ -66,7 +67,7 @@ class _HomeViewState extends State<HomeView> {
                 fontWeight: FontWeight.w400,
                 fontFamily: 'League Gothic Condesed',
                 decoration: TextDecoration.none,
-                color: Color.fromARGB(255, 5, 54, 116),
+                color: Util.azulEscuroBotao,
               ),
             ),
             Row(
@@ -78,15 +79,15 @@ class _HomeViewState extends State<HomeView> {
                   fontSize: 20,
                   width: 150,
                   backgroundColor: const Color.fromARGB(255, 3, 69, 135),
-                  fontColor: const Color.fromARGB(255, 223, 225, 227),
+                  fontColor: Util.fundoClaro,
                 ),
                 ButtonElipse(
                   "Cidade",
                   () => {},
                   fontSize: 20,
                   width: 150,
-                  backgroundColor: const Color.fromARGB(255, 223, 225, 227),
-                  fontColor: Color.fromARGB(255, 5, 54, 116),
+                  backgroundColor: Util.fundoClaro,
+                  fontColor: Util.azulEscuroBotao,
                 ),
               ],
             ),
@@ -130,7 +131,13 @@ class _HomeViewState extends State<HomeView> {
                     padding: const EdgeInsets.all(0),
                     child: TextButton(
                         onPressed: () => {Navigator.of(context).pushNamed("/subjectsall")},
-                        child: Text("Exibir todas")),
+                        child: Text(
+                          "Exibir todas",
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Util.azulEscuroBotao,
+                          ),
+                        )),
                   )
                 ],
               ),

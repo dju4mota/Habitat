@@ -7,6 +7,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Subjects.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/view/QuestionList.dart';
 
 import '../backend/AuthService.dart';
@@ -51,7 +52,7 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

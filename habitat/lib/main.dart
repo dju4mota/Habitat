@@ -1,9 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthCheck.dart';
 import 'package:habitat/src/backend/AuthService.dart';
-import 'package:habitat/src/controler/User.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/view/AnswerView.dart';
 import 'package:habitat/src/view/HomeView.dart';
 import 'package:habitat/src/view/LoginPage.dart';
@@ -37,8 +36,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        backgroundColor: Color.fromARGB(255, 220, 221, 203),
-        primaryColor: Color.fromARGB(255, 5, 54, 116),
+        backgroundColor: Util.azulClaroFundo,
+        primaryColor: Util.azulEscuroBotao,
         fontFamily: 'League Gothic Condensed',
       ),
       initialRoute: '/',

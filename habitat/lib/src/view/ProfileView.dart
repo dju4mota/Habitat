@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 
 import 'package:typesense/typesense.dart';
 
+import '../utils/utils.dart';
 import '../widgets/ButtonElipse.dart';
 import '../widgets/FooterMenu.dart';
 
@@ -30,36 +31,36 @@ class _ProfileViewState extends State<ProfileView> {
 
   bool showQuestions = true;
   bool showCollege = true;
-  Color backgroundColorCollege = const Color.fromARGB(255, 5, 54, 116);
-  Color backgroundColorCity = Color.fromARGB(255, 220, 221, 203);
-  Color backgroundColorQuestion = const Color.fromARGB(255, 5, 54, 116);
-  Color backgroundColorAnswer = Color.fromARGB(255, 220, 221, 203);
+  Color backgroundColorCollege = Util.azulEscuroBotao;
+  Color backgroundColorCity = Util.fundoClaro;
+  Color backgroundColorQuestion = Util.azulEscuroBotao;
+  Color backgroundColorAnswer = Util.fundoClaro;
 
-  Color fontColorCollege = Color.fromARGB(255, 220, 221, 203);
-  Color fontColorCity = const Color.fromARGB(255, 5, 54, 116);
-  Color fontColorQuestion = Color.fromARGB(255, 220, 221, 203);
-  Color fontColorAnswer = const Color.fromARGB(255, 5, 54, 116);
+  Color fontColorCollege = Util.fundoClaro;
+  Color fontColorCity = Util.azulEscuroBotao;
+  Color fontColorQuestion = Util.fundoClaro;
+  Color fontColorAnswer = Util.azulEscuroBotao;
 
   invertePerguntaResposta() {
     setState(() {
       if (showQuestions) {
         showQuestions = !showQuestions;
 
-        backgroundColorQuestion = Color.fromARGB(255, 220, 221, 203);
-        backgroundColorAnswer = const Color.fromARGB(255, 5, 54, 116);
+        backgroundColorQuestion = Util.fundoClaro;
+        backgroundColorAnswer = Util.azulEscuroBotao;
 
-        fontColorQuestion = const Color.fromARGB(255, 5, 54, 116);
-        fontColorAnswer = Color.fromARGB(255, 220, 221, 203);
+        fontColorQuestion = Util.azulEscuroBotao;
+        fontColorAnswer = Util.fundoClaro;
 
         search('answers');
       } else {
         showQuestions = !showQuestions;
 
-        backgroundColorQuestion = const Color.fromARGB(255, 5, 54, 116);
-        backgroundColorAnswer = Color.fromARGB(255, 220, 221, 203);
+        backgroundColorQuestion = Util.azulEscuroBotao;
+        backgroundColorAnswer = Util.fundoClaro;
 
-        fontColorQuestion = Color.fromARGB(255, 220, 221, 203);
-        fontColorAnswer = const Color.fromARGB(255, 5, 54, 116);
+        fontColorQuestion = Util.fundoClaro;
+        fontColorAnswer = Util.azulEscuroBotao;
 
         search('questions');
       }
@@ -139,7 +140,7 @@ class _ProfileViewState extends State<ProfileView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -195,8 +196,8 @@ class _ProfileViewState extends State<ProfileView> {
                   () => {},
                   fontSize: 20,
                   width: 150,
-                  backgroundColor: const Color.fromARGB(255, 5, 54, 116),
-                  fontColor: const Color.fromARGB(255, 220, 221, 203),
+                  backgroundColor: Util.azulEscuroBotao,
+                  fontColor: Util.fundoClaro,
                 ),
                 ButtonElipse("Cidade", () => {}, fontSize: 20, width: 150),
               ],

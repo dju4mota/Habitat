@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 
 import '../controler/QuestionPostingControl.dart';
@@ -18,7 +19,7 @@ class PostingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: SingleChildScrollView(
         child: Column(
           children: [
@@ -44,8 +45,8 @@ class PostingView extends StatelessWidget {
                   },
                   width: 100,
                   fontSize: 18,
-                  backgroundColor: const Color.fromARGB(255, 5, 54, 116),
-                  fontColor: const Color.fromARGB(255, 220, 221, 203),
+                  backgroundColor: Util.azulEscuroBotao,
+                  fontColor: Util.fundoClaro,
                 ),
               ],
             ),

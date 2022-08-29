@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Content.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:provider/provider.dart';
 import 'package:typesense/typesense.dart';
@@ -63,7 +64,7 @@ class _AnswerViewState extends State<AnswerView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: SingleChildScrollView(
         child: Column(
           children: [

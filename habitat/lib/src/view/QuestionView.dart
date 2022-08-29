@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Answer.dart';
 import 'package:habitat/src/models/Subjects.dart';
+import 'package:habitat/src/utils/utils.dart';
 
 import '../backend/AuthService.dart';
 import '../backend/db_firestore.dart';
@@ -56,7 +57,7 @@ class _QuestionViewState extends State<QuestionView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.fromLTRB(16.0, 5, 10, 5),
@@ -68,7 +69,7 @@ class _QuestionViewState extends State<QuestionView> {
               ),
               Column(
                 children: [
-                  Text(question.title, style: const TextStyle(fontSize: 40, color: Color.fromARGB(255, 5, 54, 116))),
+                  Text(question.title, style: const TextStyle(fontSize: 40, color: Util.azulEscuroBotao)),
                   const SizedBox(
                     height: 10,
                   ),
