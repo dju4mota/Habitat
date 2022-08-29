@@ -1,8 +1,20 @@
-class Answer {
-  late String title;
-  late String description;
-  late String id;
-  late String userId;
+import 'package:habitat/src/models/Content.dart';
 
-  Answer({required this.title, required this.description, required this.id, required this.userId});
+class Answer extends Content {
+  late String questionParentId;
+
+  Answer({
+    required String title,
+    required String description,
+    required String id,
+    required String userId,
+    required String subject,
+    required String questionParentId,
+  }) : super(
+          title: title,
+          description: description,
+          id: id,
+          userId: userId,
+          subject: subject,
+        );
 }

@@ -4,17 +4,14 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class FooterMenu extends StatelessWidget {
-  Function routeHome;
-  Function routeSearch;
-  Function routeAdd;
-  Function routePerson;
   final Color corBotao = Color.fromARGB(255, 1, 48, 108);
-  FooterMenu(this.routeHome, this.routeSearch, this.routeAdd, this.routePerson);
+  FooterMenu();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 223, 225, 227),
           border: Border.all(
             color: Colors.black,
           ),
@@ -25,25 +22,33 @@ class FooterMenu extends StatelessWidget {
           // 4 buttons
           CupertinoButton(
             onPressed: () {
-              this.routeHome();
+              if (ModalRoute.of(context)!.settings.name != "/home") {
+                Navigator.of(context).pushNamed("/home");
+              }
             },
             child: Icon(Icons.home, color: corBotao, size: 35),
           ),
           CupertinoButton(
             onPressed: () {
-              this.routeSearch();
+              if (ModalRoute.of(context)!.settings.name != "/home") {
+                Navigator.of(context).pushNamed("/home");
+              }
             },
             child: Icon(Icons.search, color: corBotao, size: 35),
           ),
           CupertinoButton(
             onPressed: () {
-              this.routeAdd();
+              if (ModalRoute.of(context)!.settings.name != "/posting") {
+                Navigator.of(context).pushNamed("/posting");
+              }
             },
             child: Icon(Icons.add, color: corBotao, size: 35),
           ),
           CupertinoButton(
             onPressed: () {
-              this.routePerson();
+              if (ModalRoute.of(context)!.settings.name != "/profile") {
+                Navigator.of(context).pushNamed("/profile");
+              }
             },
             child: Icon(Icons.person, color: corBotao, size: 35),
           ),

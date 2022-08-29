@@ -45,13 +45,17 @@ class _AnswerViewState extends State<AnswerView> {
       '"description"': '"${readControl.answer.description}"',
       '"id"': '"${readControl.answer.id}"',
       '"userId"': '"${readControl.answer.userId}"',
+      '"subject"': '"${readControl.question.subject}"',
+      '"questionId"': '"${readControl.question.id}"',
     });
     await client.collection("answers").documents.create(
       {
-        '"title"': '"${readControl.question.title}"',
-        '"description"': '"${readControl.question.description}"',
-        '"id"': '"${readControl.question.id}"',
-        '"userId"': '"${readControl.question.userId}"',
+        '"title"': '"${readControl.answer.title}"',
+        '"description"': '"${readControl.answer.description}"',
+        '"id"': '"${readControl.answer.id}"',
+        '"userId"': '"${readControl.answer.userId}"',
+        '"subject"': '"${readControl.question.subject}"',
+        '"questionId"': '"${readControl.question.id}"',
       },
     );
   }
@@ -74,11 +78,13 @@ class _AnswerViewState extends State<AnswerView> {
                 ButtonElipse(
                   "Responder",
                   () {
-                    readControl.answer = Content(
+                    readControl.answer = Answer(
                       id: uuid.v4(),
                       title: titleController.text,
                       description: answerController.text,
                       userId: _auth.currentUser!.uid,
+                      questionParentId: readControl.question.id,
+                      subject: readControl.subject.title,
                     );
                     postAnswer();
                     Navigator.of(context).pop();

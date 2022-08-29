@@ -1,15 +1,12 @@
-import 'dart:collection';
-import 'dart:convert';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/backend/typeSenseConfig.dart';
-import 'package:habitat/src/models/Answer.dart';
+import 'package:habitat/src/controler/User.dart';
 import 'package:habitat/src/models/Content.dart';
 import 'package:habitat/src/widgets/ContentItemList.dart';
-import 'package:habitat/src/widgets/QuestionItemList.dart';
 import 'package:provider/provider.dart';
 
 import 'package:typesense/typesense.dart';
@@ -26,6 +23,7 @@ class _ProfileViewState extends State<ProfileView> {
   // Function sair;
   Client client = TypeSenseInstance().client;
 
+  late FirebaseFirestore db = DBFirestore.get();
   FirebaseAuth _auth = FirebaseAuth.instance;
 
   List<Content> content = [];
@@ -88,12 +86,50 @@ class _ProfileViewState extends State<ProfileView> {
     contentMap.forEach((doc) {
       setState(() {
         content.add(Content(
-            title: doc["document"]['"title"'],
-            id: doc["document"]['"id"'],
-            description: doc["document"]['"description"'],
-            userId: doc["document"]['"userId"']));
+          title: doc["document"]['"title"'],
+          id: doc["document"]['"id"'],
+          description: doc["document"]['"description"'],
+          userId: doc["document"]['"userId"'],
+          subject: doc["document"]['"subject"'],
+        ));
       });
     });
+  }
+
+  deleteQuestion(Content content) async {
+    final deleteParameters = {
+      'filter_by': '"id": ${content.id}}',
+    };
+    try {
+      if (showQuestions) {
+        await client.collection('questions').documents.delete(deleteParameters);
+        await db
+            .collection("/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions")
+            .doc(content.id.replaceAll('"', ''))
+            .delete();
+      } else {
+        String questionParentId = await getQuestionParentId(content.id.replaceAll('"', ''));
+        await client.collection('answers').documents.delete(deleteParameters);
+        await db
+            .collection(
+                "/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions/${questionParentId.replaceAll('"', '')}/answers")
+            .doc(content.id.replaceAll('"', ''))
+            .delete();
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<String> getQuestionParentId(String answerId) async {
+    final searchParametersQuestionID = {
+      'q': '\"${answerId}\"',
+      'query_by': '"id"',
+    };
+
+    Map<String, dynamic> contentMap = await client.collection('answers').documents.search(searchParametersQuestionID);
+
+    return (contentMap["hits"][0]["document"]['"questionId"']);
   }
 
   _ProfileViewState() {
@@ -124,7 +160,7 @@ class _ProfileViewState extends State<ProfileView> {
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.6,
                         child: Text(
-                          '${_auth.currentUser!.email}',
+                          '${UserDB.name}',
                           style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w400,
@@ -193,13 +229,12 @@ class _ProfileViewState extends State<ProfileView> {
                 itemCount: content.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ItemList(content[index], () => {}, () => {}),
+                    title: ItemList(content[index], () => {}, deleteQuestion),
                   );
                 },
               ),
             ),
-            // 4 buttons com nagivator
-            FooterMenu(() => {}, () => {}, () => {Navigator.of(context).pushNamed("/posting")}, () => {})
+            FooterMenu()
           ],
         ),
       ),

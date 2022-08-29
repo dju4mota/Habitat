@@ -38,6 +38,7 @@ class PostingView extends StatelessWidget {
                       title: titleController.text,
                       description: questionController.text,
                       userId: _auth.currentUser!.uid,
+                      subject: "",
                     );
                     Navigator.of(context).pushReplacementNamed("/postingPlace");
                   },

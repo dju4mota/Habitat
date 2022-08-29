@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Answer.dart';
+import 'package:habitat/src/models/Subjects.dart';
 
 import '../backend/AuthService.dart';
 import '../backend/db_firestore.dart';
@@ -23,7 +24,7 @@ class _QuestionViewState extends State<QuestionView> {
 
   late final Content question = control.question;
 
-  List<Content> answers = [];
+  List<Answer> answers = [];
 
   carregaLista() async {
     answers.clear();
@@ -34,11 +35,16 @@ class _QuestionViewState extends State<QuestionView> {
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
-      final LinkedHashMap json = jsonDecode(doc.data().toString());
+      final LinkedHashMap json = jsonDecode(doc.data()!.toString());
 
       setState(() {
-        answers.add(
-            Content(title: json["title"], id: json["id"], description: json["description"], userId: json["userId"]));
+        answers.add(Answer(
+            title: json["title"],
+            id: json["id"],
+            description: json["description"],
+            userId: json["userId"],
+            questionParentId: json["questionId"],
+            subject: json["subject"]));
       });
     });
   }
@@ -105,7 +111,7 @@ class _QuestionViewState extends State<QuestionView> {
 }
 
 class ItemList extends StatelessWidget {
-  Content answer;
+  Answer answer;
 
   ItemList(this.answer);
 

@@ -8,7 +8,7 @@ import 'package:habitat/src/models/Content.dart';
 import '../models/Answer.dart';
 
 class AnswerItemList extends StatelessWidget {
-  Content answer;
+  Answer answer;
 
   AnswerItemList(this.answer);
 

@@ -41,6 +41,9 @@ flutter:
     - family: Inter
       fonts:
         - asset: assets/inter/Inter-VariableFont_slnt,wght.ttf  
+    - family: League Gothic
+      fonts:
+        - asset: assets/League Gothic/LeagueGothic-Regular-VariableFont_wdth.ttf
   uses-material-design: true
 
 

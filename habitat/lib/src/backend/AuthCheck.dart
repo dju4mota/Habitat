@@ -24,6 +24,7 @@ class _AuthCheckState extends State<AuthCheck> {
     } else {
       print("usuario logado");
       print(auth.usuario?.email);
+
       return HomeView();
     }
   }

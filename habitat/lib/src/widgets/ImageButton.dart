@@ -12,7 +12,7 @@ class ImageButton extends StatelessWidget {
     this.image,
     this.onPressed,
     this.label, {
-    this.cor = const Color.fromARGB(255, 1, 48, 108),
+    this.cor = const Color.fromARGB(255, 3, 69, 135),
     this.corFonte = const Color.fromARGB(255, 220, 221, 203),
   });
 

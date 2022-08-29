@@ -46,6 +46,7 @@ class _StartViewState extends State<StartView> {
                       "Bem vindo \nao seu \nHabitat!",
                       style: TextStyle(
                         fontWeight: FontWeight.w400,
+                        fontFamily: 'League Gothic',
                         color: Color.fromARGB(255, 220, 221, 203),
                         fontSize: 35,
                         decoration: TextDecoration.none,

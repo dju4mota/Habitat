@@ -3,6 +3,8 @@ import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:provider/provider.dart';
 
+import '../controler/User.dart';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -23,10 +25,9 @@ class _LoginPageState extends State<LoginPage> {
   login() async {
     setState(() => loading = true);
     try {
-      bool logado = await context
-          .read<AuthService>()
-          .login(emailController.text, passwordController.text);
+      bool logado = await context.read<AuthService>().login(emailController.text, passwordController.text);
       if (logado) {
+        await UserDB.getUser();
         Navigator.of(context).pushNamed('/home');
       }
     } on AuthException catch (e) {
@@ -40,9 +41,7 @@ class _LoginPageState extends State<LoginPage> {
   register() async {
     setState(() => loading = true);
     try {
-      await context
-          .read<AuthService>()
-          .register(emailController.text, passwordController.text);
+      await context.read<AuthService>().register(emailController.text, passwordController.text);
     } on AuthException catch (e) {
       setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -95,8 +94,7 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 24),
+                      padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                       child: TextFormField(
                         controller: passwordController,
                         obscureText: true,
@@ -131,8 +129,7 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Ainda não tem uma conta?"),
-                  TextButton(
-                      onPressed: () => {}, child: const Text("Cadastre-se"))
+                  TextButton(onPressed: () => {}, child: const Text("Cadastre-se"))
                 ],
               )
             ],

@@ -8,7 +8,7 @@ class ReadController {
 
   late Subject subject;
   late Content question;
-  late Content answer;
+  late Answer answer;
 
   factory ReadController() {
     return _control;

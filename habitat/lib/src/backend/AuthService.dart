@@ -1,6 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../controler/User.dart';
+
 class AuthException implements Exception {
   String message;
   AuthException(this.message);
@@ -15,22 +17,23 @@ class AuthService extends ChangeNotifier {
     _authCheck();
   }
   _authCheck() {
-    _auth.authStateChanges().listen((User? user) {
+    _auth.authStateChanges().listen((User? user) async {
       usuario = (user == null) ? null : user;
       isLoading = false;
+      await UserDB.getUser();
       notifyListeners();
     });
   }
 
-  _getUser() {
+  _getUser() async {
     usuario = _auth.currentUser;
+    await UserDB.getUser();
     notifyListeners();
   }
 
   register(String email, String password) async {
     try {
-      await _auth.createUserWithEmailAndPassword(
-          email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(email: email, password: password);
       _getUser();
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {

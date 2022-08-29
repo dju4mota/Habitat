@@ -24,17 +24,19 @@ class _PostingListViewState extends State<PostingListView> {
   List<Subject> subjects = [];
   // late Subject subjectToPostOn;
 
-  postQuestion(String subjectTitle) {
+  postQuestion(BuildContext context, String subjectTitle) {
+    control.question.subject = subjectTitle;
     createQuetion(context, subjectTitle);
     // Navigator.popUntil(context, ModalRoute.withName('/home'));
   }
 
   createQuetion(BuildContext context, String subjectTitle) async {
-    await db.collection("/Faculdade/inatel/subjects/${subjectTitle}/questions").doc(control.question.id).set({
+    await db.collection("/Faculdade/inatel/subjects/$subjectTitle/questions").doc(control.question.id).set({
       '"title"': '"${control.question.title}"',
       '"description"': '"${control.question.description}"',
       '"id"': '"${control.question.id}"',
       '"userId"': '"${control.question.userId}"',
+      '"subject"': '"${control.question.subject}"'
     });
     await client.collection("questions").documents.create(
       {
@@ -42,6 +44,7 @@ class _PostingListViewState extends State<PostingListView> {
         '"description"': '"${control.question.description}"',
         '"id"': '"${control.question.id}"',
         '"userId"': '"${control.question.userId}"',
+        '"subject"': '"${control.question.subject}"'
       },
     );
 
@@ -92,7 +95,7 @@ class _PostingListViewState extends State<PostingListView> {
               itemCount: subjects.length,
               itemBuilder: (context, index) {
                 return ListTile(
-                  title: Materia(subjects[index].title, createQuetion),
+                  title: Materia(subjects[index].title, postQuestion),
                 );
               },
             ),

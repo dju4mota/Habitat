@@ -1,7 +1,12 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:typesense/typesense.dart';
 
 import '../backend/AuthService.dart';
+import '../backend/db_firestore.dart';
+import '../backend/typeSenseConfig.dart';
 import '../widgets/ButtonElipse.dart';
 
 class RegisterView extends StatefulWidget {
@@ -24,13 +29,41 @@ class _RegisterViewState extends State<RegisterView> {
   late String title;
 
   late String actionButton;
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  Client client = TypeSenseInstance().client;
+  late FirebaseFirestore db = DBFirestore.get();
+
+  saveUserInDB(BuildContext context) async {
+    print("salvando");
+    await db.collection("/Users").doc(_auth.currentUser?.uid).set({
+      '"userId"': '"${_auth.currentUser?.uid}"',
+      '"email"': '"${emailController.text}"',
+      '"name"': '"${nomeController.text}"',
+      '"period"': '"${periodoController.text}"',
+    });
+    await client.collection("users").documents.create(
+      {
+        '"userId"': '"${_auth.currentUser?.uid}"',
+        '"email"': '"${emailController.text}"',
+        '"name"': '"${nomeController.text}"',
+        '"period"': '"${periodoController.text}"',
+      },
+    );
+    print("salvado");
+  }
 
   register() async {
     setState(() => loading = true);
     try {
-      await context
-          .read<AuthService>()
-          .register(emailController.text, passwordController.text);
+      await context.read<AuthService>().register(
+            emailController.text,
+            passwordController.text,
+          );
+      await saveUserInDB(context);
+      Navigator.pop(context);
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("Cadastro realizado com sucesso!")),
+      );
     } on AuthException catch (e) {
       setState(() => loading = false);
       ScaffoldMessenger.of(context).showSnackBar(
@@ -52,8 +85,7 @@ class _RegisterViewState extends State<RegisterView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextButton(
-                child: const Icon(Icons.arrow_back,
-                    size: 30, color: const Color.fromARGB(255, 220, 221, 203)),
+                child: const Icon(Icons.arrow_back, size: 30, color: const Color.fromARGB(255, 220, 221, 203)),
                 onPressed: () => {Navigator.of(context).pop()},
               ),
               const Padding(
@@ -123,8 +155,7 @@ class _RegisterViewState extends State<RegisterView> {
                       child: ButtonElipse(
                         "Cadastrar",
                         register,
-                        backgroundColor:
-                            const Color.fromARGB(255, 220, 221, 203),
+                        backgroundColor: const Color.fromARGB(255, 220, 221, 203),
                         fontColor: const Color.fromARGB(255, 5, 54, 116),
                       ),
                     )
@@ -138,8 +169,7 @@ class _RegisterViewState extends State<RegisterView> {
     );
   }
 
-  Padding formField(controller, labelText, validator, keyboardType,
-      {obscure = false}) {
+  Padding formField(controller, labelText, validator, keyboardType, {obscure = false}) {
     return Padding(
       padding: const EdgeInsets.all(12),
       child: TextFormField(
