@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:habitat/src/models/Content.dart';
+import 'package:habitat/src/utils/utils.dart';
 
 import '../models/Answer.dart';
 
@@ -18,7 +19,7 @@ class AnswerItemList extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 220, 221, 203),
+          color: Util.fundoClaro,
           border: Border.all(
             width: 2,
             color: const Color.fromARGB(255, 5, 54, 116),

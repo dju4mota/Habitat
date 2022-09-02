@@ -59,6 +59,9 @@ class _AnswerViewState extends State<AnswerView> {
         '"questionId"': '"${readControl.question.id}"',
       },
     );
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Resposta postada com sucesso!")),
+    );
   }
 
   @override

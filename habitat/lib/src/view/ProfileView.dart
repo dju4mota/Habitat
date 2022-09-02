@@ -108,6 +108,9 @@ class _ProfileViewState extends State<ProfileView> {
             .collection("/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions")
             .doc(content.id.replaceAll('"', ''))
             .delete();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Pergunta deletada com sucesso!")),
+        );
       } else {
         String questionParentId = await getQuestionParentId(content.id.replaceAll('"', ''));
         await client.collection('answers').documents.delete(deleteParameters);
@@ -116,6 +119,9 @@ class _ProfileViewState extends State<ProfileView> {
                 "/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions/${questionParentId.replaceAll('"', '')}/answers")
             .doc(content.id.replaceAll('"', ''))
             .delete();
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Resposta deletada com sucesso!")),
+        );
       }
     } catch (e) {
       print(e);

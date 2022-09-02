@@ -48,7 +48,9 @@ class _PostingListViewState extends State<PostingListView> {
         '"subject"': '"${control.question.subject}"'
       },
     );
-
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Pergunta postada com sucesso!")),
+    );
     Navigator.of(context).pushReplacementNamed("/home");
   }
 
@@ -141,7 +143,7 @@ class _MateriaState extends State<Materia> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color.fromARGB(255, 220, 221, 203),
+        color: Util.fundoClaro,
         border: Border.all(
           width: 2,
           color: Color.fromARGB(255, 5, 54, 116),

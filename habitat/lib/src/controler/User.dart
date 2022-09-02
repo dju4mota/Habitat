@@ -27,8 +27,10 @@ class UserDB {
 
     Map<String, dynamic> contentMap = await client.collection('users').documents.search(searchParametersQuestionID);
 
-    name = (contentMap["hits"][0]["document"]['"name"'] as String).replaceAll('"', '');
-    email = (contentMap["hits"][0]["document"]['"email"']);
-    period = (contentMap["hits"][0]["document"]['"period"']);
+    if (contentMap['hits'].length > 0) {
+      name = (contentMap["hits"][0]["document"]['"name"'] as String).replaceAll('"', '');
+      email = (contentMap["hits"][0]["document"]['"email"']);
+      period = (contentMap["hits"][0]["document"]['"period"']);
+    }
   }
 }
