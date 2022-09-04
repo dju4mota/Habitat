@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 
 class FooterMenu extends StatelessWidget {
   final Color corBotao = Color.fromARGB(255, 1, 48, 108);
@@ -23,7 +24,7 @@ class FooterMenu extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               if (ModalRoute.of(context)!.settings.name != "/home") {
-                Navigator.of(context).pushNamed("/home");
+                context.go('/home');
               }
             },
             child: Icon(Icons.home, color: corBotao, size: 35),
@@ -31,7 +32,7 @@ class FooterMenu extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               if (ModalRoute.of(context)!.settings.name != "/home") {
-                Navigator.of(context).pushNamed("/home");
+                context.go('/home');
               }
             },
             child: Icon(Icons.search, color: corBotao, size: 35),
@@ -39,7 +40,7 @@ class FooterMenu extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               if (ModalRoute.of(context)!.settings.name != "/posting") {
-                Navigator.of(context).pushNamed("/posting");
+                context.go('/home/posting');
               }
             },
             child: Icon(Icons.add, color: corBotao, size: 35),
@@ -47,7 +48,7 @@ class FooterMenu extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               if (ModalRoute.of(context)!.settings.name != "/profile") {
-                Navigator.of(context).pushNamed("/profile");
+                context.go('/home/profile');
               }
             },
             child: Icon(Icons.person, color: corBotao, size: 35),
