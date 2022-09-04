@@ -9,6 +9,7 @@ class ReadController {
   late Subject subject;
   late Content question;
   late Answer answer;
+  late String path = "Faculdade/inatel/subjects/";
 
   factory ReadController() {
     return _control;

@@ -6,6 +6,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/QuestionPostingControl.dart';
+import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/utils/utils.dart';
 import 'package:typesense/typesense.dart';
 
@@ -21,6 +22,7 @@ class _PostingListViewState extends State<PostingListView> {
   late FirebaseFirestore db = DBFirestore.get();
   Client client = TypeSenseInstance().client;
   final QuestionPostingControl control = QuestionPostingControl();
+  ReadController readController = ReadController();
 
   List<Subject> subjects = [];
   // late Subject subjectToPostOn;
@@ -32,7 +34,7 @@ class _PostingListViewState extends State<PostingListView> {
   }
 
   createQuetion(BuildContext context, String subjectTitle) async {
-    await db.collection("/Faculdade/inatel/subjects/$subjectTitle/questions").doc(control.question.id).set({
+    await db.collection("${readController.path}/$subjectTitle/questions").doc(control.question.id).set({
       '"title"': '"${control.question.title}"',
       '"description"': '"${control.question.description}"',
       '"id"': '"${control.question.id}"',
@@ -56,7 +58,7 @@ class _PostingListViewState extends State<PostingListView> {
 
   carregaLista() async {
     subjects.clear();
-    QuerySnapshot snapshot = await db.collection('Faculdade/inatel/subjects').get();
+    QuerySnapshot snapshot = await db.collection(readController.path).get();
 
     snapshot.docs.forEach((doc) {
       final LinkedHashMap json = jsonDecode(doc.data().toString());

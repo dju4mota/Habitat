@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:provider/provider.dart';
@@ -28,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       bool logado = await context.read<AuthService>().login(emailController.text, passwordController.text);
       if (logado) {
         await UserDB.getUser();
-        Navigator.of(context).pushNamed('/home');
+        GoRouter.of(context).go('/home');
       }
     } on AuthException catch (e) {
       setState(() => loading = false);
@@ -63,14 +64,14 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextButton(
                 child: const Icon(Icons.arrow_back, size: 30),
-                onPressed: () => {Navigator.of(context).pop()},
+                onPressed: () => {context.pop()},
               ),
               // ignore: prefer_const_constructors
               Padding(
                 padding: const EdgeInsets.fromLTRB(25.0, 0, 0, 0),
                 child: const Text("Login", style: TextStyle(fontSize: 45)),
               ),
-              SizedBox(height: 100),
+              const SizedBox(height: 100),
               Form(
                 key: formKey,
                 child: Column(

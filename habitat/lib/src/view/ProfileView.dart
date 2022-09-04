@@ -104,21 +104,46 @@ class _ProfileViewState extends State<ProfileView> {
     try {
       if (showQuestions) {
         await client.collection('questions').documents.delete(deleteParameters);
-        await db
-            .collection("/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions")
-            .doc(content.id.replaceAll('"', ''))
-            .delete();
+        try {
+          await db
+              .collection("/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions")
+              .doc(content.id.replaceAll('"', ''))
+              .delete();
+        } catch (e) {
+          print(e);
+        }
+        try {
+          await db
+              .collection("/Cidade/santaRita/subjects/${content.subject.replaceAll('"', '')}/questions")
+              .doc(content.id.replaceAll('"', ''))
+              .delete();
+        } catch (e) {
+          print(e);
+        }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Pergunta deletada com sucesso!")),
         );
       } else {
         String questionParentId = await getQuestionParentId(content.id.replaceAll('"', ''));
         await client.collection('answers').documents.delete(deleteParameters);
-        await db
-            .collection(
-                "/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions/${questionParentId.replaceAll('"', '')}/answers")
-            .doc(content.id.replaceAll('"', ''))
-            .delete();
+        try {
+          await db
+              .collection(
+                  "/Faculdade/inatel/subjects/${content.subject.replaceAll('"', '')}/questions/${questionParentId.replaceAll('"', '')}/answers")
+              .doc(content.id.replaceAll('"', ''))
+              .delete();
+        } catch (e) {
+          print(e);
+        }
+        try {
+          await db
+              .collection(
+                  "/Cidade/santaRita/subjects/${content.subject.replaceAll('"', '')}/questions/${questionParentId.replaceAll('"', '')}/answers")
+              .doc(content.id.replaceAll('"', ''))
+              .delete();
+        } catch (e) {
+          print(e);
+        }
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text("Resposta deletada com sucesso!")),
         );
@@ -194,20 +219,20 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                ButtonElipse(
-                  "Faculdade",
-                  () => {},
-                  fontSize: 20,
-                  width: 150,
-                  backgroundColor: Util.azulEscuroBotao,
-                  fontColor: Util.fundoClaro,
-                ),
-                ButtonElipse("Cidade", () => {}, fontSize: 20, width: 150),
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //   children: [
+            //     ButtonElipse(
+            //       "Faculdade",
+            //       () => {},
+            //       fontSize: 20,
+            //       width: 150,
+            //       backgroundColor: Util.azulEscuroBotao,
+            //       fontColor: Util.fundoClaro,
+            //     ),
+            //     ButtonElipse("Cidade", () => {}, fontSize: 20, width: 150),
+            //   ],
+            // ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [

@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Subjects.dart';
 import 'package:habitat/src/utils/utils.dart';
@@ -32,7 +33,7 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
 
   carregaLista() async {
     subjects.clear();
-    QuerySnapshot snapshot = await db.collection('Faculdade/inatel/subjects').get();
+    QuerySnapshot snapshot = await db.collection(control.path).get();
 
     snapshot.docs.forEach((doc) {
       final LinkedHashMap json = jsonDecode(doc.data().toString());
@@ -59,7 +60,12 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
           const SizedBox(
             height: 40,
           ),
-          IconButton(onPressed: () => {Navigator.of(context).pop()}, icon: Icon(Icons.arrow_back)),
+          IconButton(
+            onPressed: () => {
+              context.pop(),
+            },
+            icon: Icon(Icons.arrow_back),
+          ),
           Center(
             child: SizedBox(
               height: MediaQuery.of(context).size.height * 0.8,

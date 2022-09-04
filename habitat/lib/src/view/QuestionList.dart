@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/ReadController.dart';
@@ -31,16 +32,18 @@ class _QuestionListState extends State<QuestionList> {
 
   openQuestion(Content question) {
     saveQuestionToShow(question);
-    Navigator.of(context).push(
-      MaterialPageRoute(
-        builder: (context) => QuestionView(),
-      ),
-    );
+    context.go('/home/subjectsAll/questionsList/question');
+    // Navigator.of(context).push(
+    //   MaterialPageRoute(
+    //     builder: (context) => QuestionView(),
+    //   ),
+    // );
   }
 
   carregaLista() async {
     questions.clear();
-    QuerySnapshot snapshot = await db.collection('/Faculdade/inatel/subjects/${control.subject.title}/questions').get();
+    QuerySnapshot snapshot = await db.collection('${control.path}${control.subject.title}/questions').get();
+    print(control.path + control.subject.title);
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
@@ -70,7 +73,11 @@ class _QuestionListState extends State<QuestionList> {
           const SizedBox(
             height: 40,
           ),
-          IconButton(onPressed: () => {Navigator.of(context).pop()}, icon: Icon(Icons.arrow_back)),
+          IconButton(
+              onPressed: () => {
+                    context.pop(),
+                  },
+              icon: Icon(Icons.arrow_back)),
           Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 5, 5, 5),
             child: Text("Dúvidas de ${control.subject.title}",

@@ -2,7 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/view/QuestionList.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
@@ -22,13 +24,46 @@ class HomeView extends StatefulWidget {
 }
 
 openQuestionView(context) {
-  Navigator.of(context).pushNamed('/questionList');
+  context.go('/home/questionList');
 }
 
 class _HomeViewState extends State<HomeView> {
   Client client = TypeSenseInstance().client;
   late FirebaseFirestore db = DBFirestore.get();
   FirebaseAuth _auth = FirebaseAuth.instance;
+  ReadController readController = ReadController();
+
+  bool showCollege = true;
+  Color backgroundColorCollege = Util.azulEscuroBotao;
+  Color backgroundColorCity = Util.fundoClaro;
+  Color fontColorCollege = Util.fundoClaro;
+  Color fontColorCity = Util.azulEscuroBotao;
+
+  invertCollegeAndCity() {
+    setState(() {
+      if (showCollege) {
+        showCollege = !showCollege;
+
+        backgroundColorCollege = Util.fundoClaro;
+        backgroundColorCity = Util.azulEscuroBotao;
+
+        fontColorCollege = Util.azulEscuroBotao;
+        fontColorCity = Util.fundoClaro;
+        readController.path = "Cidade/santaRita/subjects/";
+        print(readController.path);
+      } else {
+        showCollege = !showCollege;
+
+        backgroundColorCollege = Util.azulEscuroBotao;
+        backgroundColorCity = Util.fundoClaro;
+
+        fontColorCollege = Util.fundoClaro;
+        fontColorCity = Util.azulEscuroBotao;
+        readController.path = "Faculdade/inatel/subjects/";
+        print(readController.path);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -58,8 +93,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
               ],
             ),
-
-            Text(
+            const Text(
               "Como podemos te ajudar hoje para fazer da faculdade e da cidade um perfeito Habitat para você? ",
               textAlign: TextAlign.justify,
               style: TextStyle(
@@ -75,19 +109,19 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 ButtonElipse(
                   "Faculdade",
-                  () => {},
+                  invertCollegeAndCity,
                   fontSize: 20,
                   width: 150,
-                  backgroundColor: const Color.fromARGB(255, 3, 69, 135),
-                  fontColor: Util.fundoClaro,
+                  backgroundColor: backgroundColorCollege,
+                  fontColor: fontColorCollege,
                 ),
                 ButtonElipse(
                   "Cidade",
-                  () => {},
+                  invertCollegeAndCity,
                   fontSize: 20,
                   width: 150,
-                  backgroundColor: Util.fundoClaro,
-                  fontColor: Util.azulEscuroBotao,
+                  backgroundColor: backgroundColorCity,
+                  fontColor: fontColorCity,
                 ),
               ],
             ),
@@ -130,8 +164,8 @@ class _HomeViewState extends State<HomeView> {
                   Padding(
                     padding: const EdgeInsets.all(0),
                     child: TextButton(
-                        onPressed: () => {Navigator.of(context).pushNamed("/subjectsall")},
-                        child: Text(
+                        onPressed: () => {context.go('/home/subjectsAll')},
+                        child: const Text(
                           "Exibir todas",
                           style: TextStyle(
                             fontSize: 17,
@@ -150,11 +184,11 @@ class _HomeViewState extends State<HomeView> {
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                     ImageButton("assets/programming2.png", () => {openQuestionView(context)}, "C204"),
-                    ImageButton("assets/circuit-board2.png", () => {}, "E209"),
+                    ImageButton("assets/circuit-board2.png", () => {openQuestionView(context)}, "E209"),
                   ]),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    ImageButton("assets/maths2.png", () => {}, "M005"),
-                    ImageButton("assets/anatomia2.png", () => {}, "B023"),
+                    ImageButton("assets/maths2.png", () => {openQuestionView(context)}, "M005"),
+                    ImageButton("assets/anatomia2.png", () => {openQuestionView(context)}, "B023"),
                   ]),
                 ],
               ),

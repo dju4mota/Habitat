@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 
 class StartView extends StatefulWidget {
@@ -16,7 +17,7 @@ class _StartViewState extends State<StartView> {
       // Container para a imagem de fundo
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage("assets/homiMochila.png"),
+          image: AssetImage("assets/ArquibancadaEditadajfif.jfif"),
           fit: BoxFit.fitHeight,
         ),
       ),
@@ -57,10 +58,10 @@ class _StartViewState extends State<StartView> {
               ),
             ),
             ButtonElipse("Partiuu!", () {
-              Navigator.of(context).pushNamed('/login');
+              context.go('/login');
             }),
             ButtonElipse("Cadastre-se", () {
-              Navigator.of(context).pushNamed('/register');
+              context.go('/register');
             }, backgroundColor: Color.fromARGB(255, 5, 54, 116), fontColor: Color.fromARGB(255, 255, 255, 255)),
             const SizedBox(height: 25, width: 10)
           ],

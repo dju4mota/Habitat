@@ -1,20 +1,94 @@
+import 'dart:collection';
+import 'dart:convert';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:habitat/src/backend/typeSenseConfig.dart';
+import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
+import 'package:typesense/typesense.dart';
 
+import '../backend/db_firestore.dart';
 import '../controler/QuestionPostingControl.dart';
 import '../models/Content.dart';
 import 'package:uuid/uuid.dart';
 
-class PostingView extends StatelessWidget {
+class PostingView extends StatefulWidget {
+  @override
+  State<PostingView> createState() => _PostingViewState();
+}
+
+class _PostingViewState extends State<PostingView> {
   final formKey = GlobalKey<FormState>();
+
   final titleController = TextEditingController();
+
   final questionController = TextEditingController();
 
   final control = QuestionPostingControl();
+
   FirebaseAuth _auth = FirebaseAuth.instance;
+  late FirebaseFirestore db = DBFirestore.get();
+  Client client = TypeSenseInstance().client;
+  ReadController readController = ReadController();
+
   final uuid = Uuid();
+
+  List<String> subjects = ['Selecione uma matéria'];
+  late String dropdownValue;
+
+  carregaLista() async {
+    subjects.clear();
+    subjects.add('Selecione uma matéria');
+    QuerySnapshot snapshot = await db.collection(readController.path).get();
+
+    snapshot.docs.forEach((doc) {
+      final LinkedHashMap json = jsonDecode(doc.data().toString());
+      // print(json["title"].toString());
+      setState(() {
+        subjects.add(
+          json["title"].toString(),
+        );
+      });
+    });
+  }
+
+  _PostingViewState() {
+    carregaLista();
+    dropdownValue = subjects.first;
+  }
+
+  postQuestion(BuildContext context, String subjectTitle) {
+    control.question.subject = subjectTitle;
+    createQuestion(context, subjectTitle);
+  }
+
+  createQuestion(BuildContext context, String subjectTitle) async {
+    print("${readController.path}$subjectTitle/questions");
+    await db.collection("${readController.path}$subjectTitle/questions").doc(control.question.id).set({
+      '"title"': '"${control.question.title}"',
+      '"description"': '"${control.question.description}"',
+      '"id"': '"${control.question.id}"',
+      '"userId"': '"${control.question.userId}"',
+      '"subject"': '"${control.question.subject}"'
+    });
+    await client.collection("questions").documents.create(
+      {
+        '"title"': '"${control.question.title}"',
+        '"description"': '"${control.question.description}"',
+        '"id"': '"${control.question.id}"',
+        '"userId"': '"${control.question.userId}"',
+        '"subject"': '"${control.question.subject}"'
+      },
+    );
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text("Pergunta postada com sucesso!")),
+    );
+    context.go('/home');
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,11 +102,11 @@ class PostingView extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.of(context).dispose(),
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => context.pop(),
                 ),
                 ButtonElipse(
-                  "Próximo",
+                  "Postar",
                   () {
                     control.question = Content(
                       id: uuid.v4(),
@@ -41,7 +115,13 @@ class PostingView extends StatelessWidget {
                       userId: _auth.currentUser!.uid,
                       subject: "",
                     );
-                    Navigator.of(context).pushReplacementNamed("/postingPlace");
+                    if (dropdownValue == "Selecione uma matéria") {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        SnackBar(content: Text("Selecione uma matéria!")),
+                      );
+                    } else {
+                      postQuestion(context, dropdownValue);
+                    }
                   },
                   width: 100,
                   fontSize: 18,
@@ -75,7 +155,18 @@ class PostingView extends StatelessWidget {
                       ),
                     ),
                   ],
-                ))
+                )),
+            DropdownButton<String>(
+              value: dropdownValue,
+              onChanged: (String? newValue) {
+                setState(() {
+                  dropdownValue = newValue!;
+                });
+              },
+              items: subjects.map<DropdownMenuItem<String>>((String subject) {
+                return DropdownMenuItem<String>(value: subject, child: Text(subject));
+              }).toList(),
+            )
           ],
         ),
       ),

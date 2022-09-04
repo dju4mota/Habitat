@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:typesense/typesense.dart';
 
@@ -60,9 +61,9 @@ class _RegisterViewState extends State<RegisterView> {
             passwordController.text,
           );
       await saveUserInDB(context);
-      Navigator.pop(context);
+      context.pop();
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Cadastro realizado com sucesso!")),
+        const SnackBar(content: Text("Cadastro realizado com sucesso!")),
       );
     } on AuthException catch (e) {
       setState(() => loading = false);
@@ -86,7 +87,9 @@ class _RegisterViewState extends State<RegisterView> {
             children: [
               TextButton(
                 child: const Icon(Icons.arrow_back, size: 30, color: const Color.fromARGB(255, 220, 221, 203)),
-                onPressed: () => {Navigator.of(context).pop()},
+                onPressed: () => {
+                  context.pop(),
+                },
               ),
               const Padding(
                 padding: EdgeInsets.fromLTRB(25.0, 0, 0, 0),
@@ -181,7 +184,7 @@ class _RegisterViewState extends State<RegisterView> {
           decoration: InputDecoration(
             border: null,
             labelText: labelText,
-            labelStyle: TextStyle(
+            labelStyle: const TextStyle(
               color: Color.fromARGB(255, 220, 221, 203),
             ),
           ),

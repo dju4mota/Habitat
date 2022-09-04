@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:habitat/src/models/Content.dart';
+import 'package:habitat/src/utils/utils.dart';
 
 class ContentItemList extends StatelessWidget {
   Content content;
@@ -17,7 +18,7 @@ class ContentItemList extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 220, 221, 203),
+          color: Util.fundoClaro,
           border: Border.all(
             width: 2,
             color: Color.fromARGB(255, 5, 54, 116),

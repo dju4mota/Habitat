@@ -1,0 +1,14 @@
+List<String> cityPlaces = [
+    "Açaí & Doces",
+    "Apps",
+    "Bares & Lanches",
+    "Carona",
+    "Comércio",
+    "Comidas ",
+    "Festas & Eventos",
+    "Pessoal",
+    "Repúblicas",
+    "Saúde & Estética",
+    "Vendas & Trocas",
+    "Outros",
+  ];

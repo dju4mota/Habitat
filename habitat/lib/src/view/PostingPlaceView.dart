@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ImageButton.dart';
 
@@ -41,7 +42,7 @@ class PostingPlaceView extends StatelessWidget {
               ),
               child: ImageButton(
                 "assets/university1.png",
-                () => {Navigator.of(context).pushReplacementNamed("/postingList")},
+                () => {context.go('/home/subjectsAll/posting')},
                 "Faculdade",
                 cor: Util.azulEscuroBotao,
                 corFonte: Util.fundoClaro,
@@ -60,7 +61,7 @@ class PostingPlaceView extends StatelessWidget {
               ),
               child: ImageButton(
                 "assets/architecture-and-city1.png",
-                () => {},
+                () => {Navigator.of(context).pushReplacementNamed("/posting")},
                 "Cidade",
                 cor: Util.azulEscuroBotao,
                 corFonte: Util.fundoClaro,

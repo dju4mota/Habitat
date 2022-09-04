@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Answer.dart';
 import 'package:habitat/src/models/Subjects.dart';
@@ -22,6 +23,7 @@ class _QuestionViewState extends State<QuestionView> {
   ReadController control = ReadController();
   late FirebaseFirestore db = DBFirestore.get();
   late AuthService auth;
+  ReadController readController = ReadController();
 
   late final Content question = control.question;
 
@@ -30,9 +32,8 @@ class _QuestionViewState extends State<QuestionView> {
   carregaLista() async {
     answers.clear();
 
-    QuerySnapshot snapshot = await db
-        .collection('/Faculdade/inatel/subjects/${control.subject.title}/questions/${question.id}/answers')
-        .get();
+    QuerySnapshot snapshot =
+        await db.collection('${readController.path}${control.subject.title}/questions/${question.id}/answers').get();
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
@@ -86,7 +87,8 @@ class _QuestionViewState extends State<QuestionView> {
                   TextButton(
                       onPressed: () => {
                             control.question = question,
-                            Navigator.of(context).pushNamed("/answerView"),
+                            // Navigator.of(context).pushNamed("/answerView"),
+                            context.go('/home/subjectsAll/questionsList/question/answer'),
                           },
                       child: const Text('Responder',
                           style: TextStyle(fontSize: 20, color: const Color.fromARGB(255, 5, 54, 116)))),

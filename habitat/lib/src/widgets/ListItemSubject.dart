@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/utils/utils.dart';
 
 import '../models/Subjects.dart';
@@ -29,11 +30,12 @@ class ListItemCus extends StatelessWidget {
         child: Text(subject.title, style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116))),
         onPressed: () {
           function(subject);
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => QuestionList(),
-            ),
-          );
+          context.go('/questionList');
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(
+          //     builder: (context) => QuestionList(),
+          //   ),
+          // );
         },
       ),
     );

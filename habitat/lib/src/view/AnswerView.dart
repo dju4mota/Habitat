@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login/flutter_login.dart';
+import 'package:go_router/go_router.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Content.dart';
 import 'package:habitat/src/utils/utils.dart';
@@ -38,8 +39,7 @@ class _AnswerViewState extends State<AnswerView> {
 
   createAnswer(BuildContext context) async {
     await db
-        .collection(
-            "/Faculdade/inatel/subjects/${readControl.subject.title}/questions/${readControl.question.id}/answers")
+        .collection("${readControl.path}${readControl.subject.title}/questions/${readControl.question.id}/answers")
         .doc(readControl.answer.id)
         .set({
       '"title"': '"${readControl.answer.title}"',
@@ -60,7 +60,7 @@ class _AnswerViewState extends State<AnswerView> {
       },
     );
     ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(content: Text("Resposta postada com sucesso!")),
+      const SnackBar(content: Text("Resposta postada com sucesso!")),
     );
   }
 
@@ -76,8 +76,8 @@ class _AnswerViewState extends State<AnswerView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () => Navigator.of(context).pop(),
+                  icon: const Icon(Icons.arrow_back),
+                  onPressed: () => context.pop(),
                 ),
                 ButtonElipse(
                   "Responder",
@@ -91,7 +91,7 @@ class _AnswerViewState extends State<AnswerView> {
                       subject: readControl.subject.title,
                     );
                     postAnswer();
-                    Navigator.of(context).pop();
+                    context.pop();
                   },
                   width: 100,
                   fontSize: 18,
