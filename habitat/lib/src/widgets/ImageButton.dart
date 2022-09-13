@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class ImageButton extends StatelessWidget {
   String image;
@@ -32,14 +30,14 @@ class ImageButton extends StatelessWidget {
             },
             icon: Image.asset(
               image,
-              scale: 0.2,
+              scale: 0.1,
             ),
-            iconSize: 100,
+            iconSize: MediaQuery.of(context).size.height * 0.12,
           ),
           Text(
             label,
             style: TextStyle(
-              fontSize: 20,
+              fontSize: MediaQuery.of(context).size.height * 0.03,
               color: corFonte,
             ),
           ),

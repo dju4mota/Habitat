@@ -3,13 +3,10 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Subjects.dart';
 import 'package:habitat/src/utils/utils.dart';
-import 'package:habitat/src/view/QuestionList.dart';
 
 import '../backend/AuthService.dart';
 import '../backend/db_firestore.dart';

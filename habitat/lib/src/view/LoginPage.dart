@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:habitat/src/backend/AuthService.dart';
+import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:provider/provider.dart';
 
@@ -29,7 +29,7 @@ class _LoginPageState extends State<LoginPage> {
       bool logado = await context.read<AuthService>().login(emailController.text, passwordController.text);
       if (logado) {
         await UserDB.getUser();
-        GoRouter.of(context).go('/home');
+        Navigator.of(context).pushNamed('/home');
       }
     } on AuthException catch (e) {
       setState(() => loading = false);
@@ -54,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 220, 221, 203),
+      backgroundColor: Util.azulClaroFundo,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 50),
@@ -64,7 +64,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               TextButton(
                 child: const Icon(Icons.arrow_back, size: 30),
-                onPressed: () => {context.pop()},
+                onPressed: () => {Navigator.of(context).pop()},
               ),
               // ignore: prefer_const_constructors
               Padding(

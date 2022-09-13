@@ -20,7 +20,7 @@ class _AuthCheckState extends State<AuthCheck> {
       return loading();
     } else if (auth.usuario == null) {
       print("usuario nulo");
-      return StartView();
+      return const StartView();
     } else {
       print("usuario logado");
       print(auth.usuario?.email);

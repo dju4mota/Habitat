@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habitat/src/view/LoginPage.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 
 class StartView extends StatefulWidget {
@@ -58,10 +59,10 @@ class _StartViewState extends State<StartView> {
               ),
             ),
             ButtonElipse("Partiuu!", () {
-              context.go('/login');
+              Navigator.of(context).pushNamed('/login');
             }),
             ButtonElipse("Cadastre-se", () {
-              context.go('/register');
+              Navigator.of(context).pushNamed('/register');
             }, backgroundColor: Color.fromARGB(255, 5, 54, 116), fontColor: Color.fromARGB(255, 255, 255, 255)),
             const SizedBox(height: 25, width: 10)
           ],

@@ -1,5 +1,3 @@
-import 'dart:js';
-
 import 'package:go_router/go_router.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/view/AnswerView.dart';
@@ -19,10 +17,10 @@ final routes = GoRouter(
   refreshListenable: authService,
   redirect: (state) {
     final isAutheticated = authService.usuario != null;
-    final isLoginRoute = state.subloc == '/start';
-
+    final isLoginRoute = state.subloc == '/';
+    print("redirect");
     if (!isAutheticated) {
-      return isLoginRoute ? null : '/start';
+      return isLoginRoute ? null : '/';
     }
 
     if (isLoginRoute) return '/home';

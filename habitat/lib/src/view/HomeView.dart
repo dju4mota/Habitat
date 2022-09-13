@@ -2,21 +2,16 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/utils/utils.dart';
-import 'package:habitat/src/view/QuestionList.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:habitat/src/widgets/FooterMenu.dart';
 import 'package:habitat/src/widgets/ImageButton.dart';
-import 'package:provider/provider.dart';
 import 'package:typesense/typesense.dart';
 
 import '../backend/db_firestore.dart';
 import '../backend/typeSenseConfig.dart';
 import '../controler/User.dart';
-import '../widgets/Carrossel.dart';
 
 class HomeView extends StatefulWidget {
   @override
@@ -24,7 +19,7 @@ class HomeView extends StatefulWidget {
 }
 
 openQuestionView(context) {
-  context.go('/home/questionList');
+  Navigator.of(context).pushNamed('questionList');
 }
 
 class _HomeViewState extends State<HomeView> {
@@ -76,7 +71,7 @@ class _HomeViewState extends State<HomeView> {
           children: [
             const SizedBox(
               // não sei se funciona para todo celular
-              height: 25,
+              height: 23,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -84,7 +79,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 Text(
                   'Olá, ${UserDB.name}',
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 40,
                     fontWeight: FontWeight.w400,
                     // fontFamily: 'Inter',
@@ -164,7 +159,7 @@ class _HomeViewState extends State<HomeView> {
                   Padding(
                     padding: const EdgeInsets.all(0),
                     child: TextButton(
-                        onPressed: () => {context.go('/home/subjectsAll')},
+                        onPressed: () => {Navigator.of(context).pushNamed('/subjectsall')},
                         child: const Text(
                           "Exibir todas",
                           style: TextStyle(

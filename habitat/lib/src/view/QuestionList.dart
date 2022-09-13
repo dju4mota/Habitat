@@ -9,7 +9,6 @@ import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Content.dart';
 import 'package:habitat/src/utils/utils.dart';
-import 'package:habitat/src/view/QuestionView.dart';
 import 'package:habitat/src/widgets/QuestionItemList.dart';
 
 class QuestionList extends StatefulWidget {
@@ -32,7 +31,7 @@ class _QuestionListState extends State<QuestionList> {
 
   openQuestion(Content question) {
     saveQuestionToShow(question);
-    context.go('/home/subjectsAll/questionsList/question');
+    Navigator.of(context).pushNamed('subjectsAll/questionsList/question');
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (context) => QuestionView(),
