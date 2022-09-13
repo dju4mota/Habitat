@@ -87,7 +87,8 @@ class _PostingViewState extends State<PostingView> {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text("Pergunta postada com sucesso!")),
     );
-    context.go('/home');
+    // context.go('/home');
+    Navigator.of(context).popAndPushNamed('/home');
   }
 
   @override
@@ -103,7 +104,7 @@ class _PostingViewState extends State<PostingView> {
               children: [
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () => context.pop(),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
                 ButtonElipse(
                   "Postar",

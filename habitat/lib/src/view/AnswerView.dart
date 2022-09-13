@@ -77,7 +77,7 @@ class _AnswerViewState extends State<AnswerView> {
               children: [
                 IconButton(
                   icon: const Icon(Icons.arrow_back),
-                  onPressed: () => context.pop(),
+                  onPressed: () => Navigator.of(context).pop(),
                 ),
                 ButtonElipse(
                   "Responder",
@@ -91,7 +91,7 @@ class _AnswerViewState extends State<AnswerView> {
                       subject: readControl.subject.title,
                     );
                     postAnswer();
-                    context.pop();
+                    Navigator.of(context).pop();
                   },
                   width: 100,
                   fontSize: 18,

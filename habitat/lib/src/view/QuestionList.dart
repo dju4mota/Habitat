@@ -31,7 +31,7 @@ class _QuestionListState extends State<QuestionList> {
 
   openQuestion(Content question) {
     saveQuestionToShow(question);
-    Navigator.of(context).pushNamed('subjectsAll/questionsList/question');
+    Navigator.of(context).pushNamed('/questionView');
     // Navigator.of(context).push(
     //   MaterialPageRoute(
     //     builder: (context) => QuestionView(),
@@ -74,7 +74,7 @@ class _QuestionListState extends State<QuestionList> {
           ),
           IconButton(
               onPressed: () => {
-                    context.pop(),
+                    Navigator.of(context).pop(),
                   },
               icon: Icon(Icons.arrow_back)),
           Padding(

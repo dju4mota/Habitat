@@ -29,7 +29,7 @@ class ListItemCus extends StatelessWidget {
         child: Text(subject.title, style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116))),
         onPressed: () {
           function(subject);
-          context.go('/questionList');
+          Navigator.of(context).popAndPushNamed('/questionList');
           // Navigator.of(context).push(
           //   MaterialPageRoute(
           //     builder: (context) => QuestionList(),

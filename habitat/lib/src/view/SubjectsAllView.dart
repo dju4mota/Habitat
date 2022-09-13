@@ -59,7 +59,7 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
           ),
           IconButton(
             onPressed: () => {
-              context.pop(),
+              Navigator.of(context).pop(),
             },
             icon: Icon(Icons.arrow_back),
           ),

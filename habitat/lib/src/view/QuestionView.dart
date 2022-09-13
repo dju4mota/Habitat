@@ -86,8 +86,8 @@ class _QuestionViewState extends State<QuestionView> {
                   TextButton(
                       onPressed: () => {
                             control.question = question,
-                            // Navigator.of(context).pushNamed("/answerView"),
-                            context.go('/home/subjectsAll/questionsList/question/answer'),
+                            Navigator.of(context).pushNamed("/answerView"),
+                            // context.go('/home/subjectsAll/questionsList/question/answer'),
                           },
                       child: const Text('Responder',
                           style: TextStyle(fontSize: 20, color: const Color.fromARGB(255, 5, 54, 116)))),

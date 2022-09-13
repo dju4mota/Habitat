@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:habitat/src/controler/ReadController.dart';
+import 'package:habitat/src/models/Subjects.dart';
 import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:habitat/src/widgets/FooterMenu.dart';
@@ -18,10 +19,6 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-openQuestionView(context) {
-  Navigator.of(context).pushNamed('questionList');
-}
-
 class _HomeViewState extends State<HomeView> {
   Client client = TypeSenseInstance().client;
   late FirebaseFirestore db = DBFirestore.get();
@@ -33,6 +30,11 @@ class _HomeViewState extends State<HomeView> {
   Color backgroundColorCity = Util.fundoClaro;
   Color fontColorCollege = Util.fundoClaro;
   Color fontColorCity = Util.azulEscuroBotao;
+
+  openQuestionView(context, subjectTitle) {
+    readController.subject = Subject(title: subjectTitle);
+    Navigator.of(context).pushNamed('/questionList');
+  }
 
   invertCollegeAndCity() {
     setState(() {
@@ -65,13 +67,13 @@ class _HomeViewState extends State<HomeView> {
     return Scaffold(
       backgroundColor: Util.azulClaroFundo,
       body: Padding(
-        padding: const EdgeInsets.all(17.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             const SizedBox(
               // não sei se funciona para todo celular
-              height: 23,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -178,12 +180,12 @@ class _HomeViewState extends State<HomeView> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    ImageButton("assets/programming2.png", () => {openQuestionView(context)}, "C204"),
-                    ImageButton("assets/circuit-board2.png", () => {openQuestionView(context)}, "E209"),
+                    ImageButton("assets/programming2.png", () => {openQuestionView(context, "C204")}, "C204"),
+                    ImageButton("assets/circuit-board2.png", () => {openQuestionView(context, "E209")}, "E209"),
                   ]),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    ImageButton("assets/maths2.png", () => {openQuestionView(context)}, "M005"),
-                    ImageButton("assets/anatomia2.png", () => {openQuestionView(context)}, "B023"),
+                    ImageButton("assets/maths2.png", () => {openQuestionView(context, "M005")}, "M005"),
+                    ImageButton("assets/anatomia2.png", () => {openQuestionView(context, "B023")}, "B023"),
                   ]),
                 ],
               ),
