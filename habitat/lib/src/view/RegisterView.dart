@@ -60,7 +60,7 @@ class _RegisterViewState extends State<RegisterView> {
             passwordController.text,
           );
       await saveUserInDB(context);
-      Navigator.of(context).pop();
+      Navigator.of(context).popAndPushNamed('/home');
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("Cadastro realizado com sucesso!")),
       );
@@ -106,7 +106,7 @@ class _RegisterViewState extends State<RegisterView> {
                     const SizedBox(height: 50),
                     formField(
                       nomeController,
-                      "Nome",
+                      "Nome Social",
                       (value) {
                         if (value!.isEmpty) {
                           return 'Informe um nome válido';

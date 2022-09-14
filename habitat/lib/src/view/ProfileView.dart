@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/backend/typeSenseConfig.dart';
+import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/controler/User.dart';
 import 'package:habitat/src/models/Content.dart';
 import 'package:habitat/src/widgets/ContentItemList.dart';
@@ -23,6 +24,7 @@ class ProfileView extends StatefulWidget {
 class _ProfileViewState extends State<ProfileView> {
   // Function sair;
   Client client = TypeSenseInstance().client;
+  ReadController readController = ReadController();
 
   late FirebaseFirestore db = DBFirestore.get();
   FirebaseAuth _auth = FirebaseAuth.instance;
@@ -95,6 +97,11 @@ class _ProfileViewState extends State<ProfileView> {
         ));
       });
     });
+  }
+
+  openQuestion(Content content) {
+    readController.question = content;
+    Navigator.of(context).pushNamed('/questionView');
   }
 
   deleteQuestion(Content content) async {
@@ -261,7 +268,7 @@ class _ProfileViewState extends State<ProfileView> {
                 itemCount: content.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    title: ItemList(content[index], () => {}, deleteQuestion),
+                    title: ItemList(content[index], openQuestion, deleteQuestion),
                   );
                 },
               ),

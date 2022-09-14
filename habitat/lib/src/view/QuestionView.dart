@@ -94,7 +94,7 @@ class _QuestionViewState extends State<QuestionView> {
                 ],
               ),
               SizedBox(
-                height: 300,
+                height: MediaQuery.of(context).size.height * 0.6,
                 child: ListView.builder(
                   itemCount: answers.length,
                   itemBuilder: (context, index) {

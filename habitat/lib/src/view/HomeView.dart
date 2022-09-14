@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
@@ -79,13 +80,18 @@ class _HomeViewState extends State<HomeView> {
               mainAxisAlignment: MainAxisAlignment.start,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                Text(
-                  'Olá, ${UserDB.name}',
-                  style: const TextStyle(
-                    fontSize: 40,
-                    fontWeight: FontWeight.w400,
-                    // fontFamily: 'Inter',
-                    color: Util.azulEscuroBotao,
+                SizedBox(
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  child: AutoSizeText(
+                    'Olá, ${UserDB.name}!',
+                    maxLines: 2,
+                    minFontSize: 15,
+                    overflow: TextOverflow.ellipsis,
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.w400,
+                      color: Util.azulEscuroBotao,
+                    ),
                   ),
                 ),
               ],
