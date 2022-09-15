@@ -44,6 +44,19 @@ class AuthService extends ChangeNotifier {
     }
   }
 
+  deleteAccount(String email, String password) async {
+    try {
+      AuthCredential credential = EmailAuthProvider.credential(email: email, password: password);
+      await _auth.currentUser!.reauthenticateWithCredential(credential);
+      _auth.currentUser!.delete();
+      _getUser();
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'requires-recent-login') {
+        throw AuthException("Faça login novamente");
+      }
+    }
+  }
+
   login(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);

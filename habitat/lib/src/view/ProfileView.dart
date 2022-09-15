@@ -44,6 +44,10 @@ class _ProfileViewState extends State<ProfileView> {
   Color fontColorQuestion = Util.fundoClaro;
   Color fontColorAnswer = Util.azulEscuroBotao;
 
+  final formKey = GlobalKey<FormState>();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+
   invertePerguntaResposta() {
     setState(() {
       if (showQuestions) {
@@ -201,7 +205,7 @@ class _ProfileViewState extends State<ProfileView> {
     return Scaffold(
       backgroundColor: Util.azulClaroFundo,
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -213,43 +217,47 @@ class _ProfileViewState extends State<ProfileView> {
               mainAxisAlignment: MainAxisAlignment.start,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.8,
-                  child: Row(
-                    children: [
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.6,
-                        child: AutoSizeText(
-                          '${UserDB.name}',
-                          maxLines: 2,
-                          minFontSize: 15,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w400,
-                            fontFamily: 'Inter',
-                            color: Color.fromARGB(255, 5, 54, 116),
+                Padding(
+                  padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+                  child: SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.8,
+                    child: Row(
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          child: AutoSizeText(
+                            '${UserDB.name}',
+                            maxLines: 2,
+                            minFontSize: 15,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                              fontSize: 25,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: 'Inter',
+                              color: Color.fromARGB(255, 5, 54, 116),
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        width: MediaQuery.of(context).size.width * 0.2,
-                        child: ButtonElipse(
-                          "Sair",
-                          () {
-                            {
-                              context.read<AuthService>().logout();
-                              Navigator.of(context).popUntil((route) => route.isFirst);
-                            }
-                          },
-                          fontSize: 20,
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width * 0.2,
+                          child: ButtonElipse(
+                            "Sair",
+                            () {
+                              {
+                                context.read<AuthService>().logout();
+                                Navigator.of(context).popUntil((route) => route.isFirst);
+                              }
+                            },
+                            fontSize: 20,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
             ),
+
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             //   children: [
@@ -288,7 +296,7 @@ class _ProfileViewState extends State<ProfileView> {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.55,
               child: ListView.builder(
-                padding: EdgeInsets.all(0),
+                padding: const EdgeInsets.all(0),
                 itemCount: content.length,
                 itemBuilder: (context, index) {
                   return ListTile(
@@ -297,7 +305,74 @@ class _ProfileViewState extends State<ProfileView> {
                 },
               ),
             ),
-            FooterMenu()
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.5,
+              child: ButtonElipse(
+                "Deletar Conta",
+                () {
+                  {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Deletar Conta"),
+                          content: SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.3,
+                            child: Column(
+                              children: [
+                                const Text("Confirme suas credenciais para deletar sua conta: "),
+                                TextField(
+                                  controller: emailController,
+                                  decoration: const InputDecoration(
+                                    labelText: "Email",
+                                  ),
+                                ),
+                                TextField(
+                                  controller: passwordController,
+                                  decoration: const InputDecoration(
+                                    labelText: "Senha",
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: [
+                            TextButton(
+                              child: const Text("Cancelar"),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text("Deletar"),
+                              onPressed: () async {
+                                try {
+                                  await context
+                                      .read<AuthService>()
+                                      .deleteAccount(emailController.text, passwordController.text);
+                                  Navigator.of(context).popUntil((route) => route.isFirst);
+                                } catch (e) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(content: Text("Erro ao deletar conta!")),
+                                  );
+                                }
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  }
+                },
+                fontSize: 20,
+                backgroundColor: Util.azulEscuroBotao,
+                fontColor: Util.fundoClaro,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: FooterMenu(),
+            )
           ],
         ),
       ),

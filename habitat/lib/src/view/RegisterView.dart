@@ -23,6 +23,8 @@ class _RegisterViewState extends State<RegisterView> {
   final periodoController = TextEditingController();
 
   bool isLogin = true;
+  bool aceitouTermos = false;
+  bool mostrarTermos = false;
 
   bool loading = false;
 
@@ -53,21 +55,27 @@ class _RegisterViewState extends State<RegisterView> {
   }
 
   register() async {
-    setState(() => loading = true);
-    try {
-      await context.read<AuthService>().register(
-            emailController.text,
-            passwordController.text,
-          );
-      await saveUserInDB(context);
-      Navigator.of(context).popAndPushNamed('/home');
+    if (aceitouTermos) {
+      setState(() => loading = true);
+      try {
+        await context.read<AuthService>().register(
+              emailController.text,
+              passwordController.text,
+            );
+        await saveUserInDB(context);
+        Navigator.of(context).popAndPushNamed('/home');
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("Cadastro realizado com sucesso!")),
+        );
+      } on AuthException catch (e) {
+        setState(() => loading = false);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(e.message)),
+        );
+      }
+    } else {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Cadastro realizado com sucesso!")),
-      );
-    } on AuthException catch (e) {
-      setState(() => loading = false);
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text(e.message)),
+        const SnackBar(content: Text("Você precisa aceitar os termos!")),
       );
     }
   }
@@ -151,7 +159,52 @@ class _RegisterViewState extends State<RegisterView> {
                       },
                       TextInputType.number,
                     ),
-                    const SizedBox(height: 150),
+                    Row(
+                      children: [
+                        Checkbox(
+                          value: aceitouTermos,
+                          onChanged: (value) => setState(() => aceitouTermos = value!),
+                        ),
+                        const Text(
+                          "Li e aceito os termos de uso",
+                          style: TextStyle(
+                            color: const Color.fromARGB(255, 220, 221, 203),
+                          ),
+                        ),
+                      ],
+                    ),
+                    TextButton(
+                        onPressed: () => setState(() => mostrarTermos = !mostrarTermos),
+                        child: const Text(
+                          "Termos de uso",
+                          style: TextStyle(color: Colors.blue),
+                        )),
+                    if (mostrarTermos)
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Text(
+                          '''   Você está adquirindo o aplicativo “Habitat”, com ele você poderá tirar suas dúvidas sobre matérias da sua universidade e também da cidade, assim como ver perguntas e respostas de outros usuários, para assim, ajudar no seu desenvolvimento acadêmico e afins.
+    
+    Dessa forma, para ter-se o melhor habitat digital, deve-se lembrar que é responsabilidade do usuários:
+    1.  a correta utilização da plataforma, prezando pela boa convivência, pelo respeito e cordialidade entre os usuários, qualquer tipo de preconceito levará a banimento imediato.
+    2.  pela proteção aos dados de acesso à sua conta/perfil (login/senha).
+	  
+    Assim como é responsabilidade da plataforma:
+    1.  as informações que foram por ela divulgadas, sendo que os comentários ou informações divulgadas por usuários são de inteira responsabilidade dos próprios usuários, ou seja, todas as opiniões expressadas nos comentários deste aplicativo não expressam a opinião dos criadores, mas tão somente a opinião de quem os escreveu.
+	  
+    A plataforma não se responsabiliza por links externos contidos em seu sistema que possam redirecionar o usuário à ambiente externo a sua rede.
+
+	  Toda a estrutura do aplicativo, as marcas, logotipos, nomes comerciais, layouts, gráficos e design de interface, imagens, ilustrações, fotografias, apresentações, vídeos, conteúdos escritos e de som e áudio e quaisquer outras informações e direitos de propriedade intelectual, observados os termos da Lei de Propriedade Industrial, Lei de Direitos Autorais e Lei de Software, estão devidamente reservados.
+
+	  Sem prejuízo das demais medidas legais cabíveis, a qualquer momento, o usuário poderá ser advertido, suspenso ou ter a conta banida se:
+    1.  descumprir seus deveres de usuário;
+    2.  tiver qualquer comportamento fraudulento, doloso ou que ofenda terceiros.
+    
+    Você pode rescindir este Termos a qualquer momento e por qualquer motivo, excluindo sua Conta e interrompendo o uso de todos os Serviços.
+''',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ButtonElipse(
