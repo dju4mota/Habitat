@@ -3,7 +3,6 @@ import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Answer.dart';
 import 'package:habitat/src/utils/utils.dart';
@@ -32,20 +31,22 @@ class _QuestionViewState extends State<QuestionView> {
     answers.clear();
 
     QuerySnapshot snapshot =
-        await db.collection('${readController.path}${control.subject.title}/questions/${question.id}/answers').get();
+        await db.collection('${readController.path}${control.subject.title}/questions/${question.id}/answers/').get();
 
     snapshot.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
-      final LinkedHashMap json = jsonDecode(doc.data()!.toString());
-
+      Map<String, dynamic> json = doc.data() as Map<String, dynamic>;
+      //final LinkedHashMap json = jsonDecode(doc.data()!.toString());
+      print((json.containsKey('"title"')));
       setState(() {
         answers.add(Answer(
-            title: json["title"],
-            id: json["id"],
-            description: json["description"],
-            userId: json["userId"],
-            questionParentId: json["questionId"],
-            subject: json["subject"]));
+          title: json['"title"'].toString().replaceAll('"', ''),
+          id: json['"id"'].toString().replaceAll('"', ''),
+          description: json['"description"'].toString().replaceAll('"', ''),
+          userId: json['"userId"'].toString().replaceAll('"', ''),
+          questionParentId: json['"questionId"'].toString().replaceAll('"', ''),
+          subject: json['"subject"'].toString().replaceAll('"', ''),
+        ));
       });
     });
   }
