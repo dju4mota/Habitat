@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -89,19 +90,39 @@ class _ProfileViewState extends State<ProfileView> {
     contentMap.forEach((doc) {
       setState(() {
         content.add(Content(
-          title: doc["document"]['"title"'],
-          id: doc["document"]['"id"'],
-          description: doc["document"]['"description"'],
-          userId: doc["document"]['"userId"'],
-          subject: doc["document"]['"subject"'],
+          title: doc["document"]['"title"'].toString().replaceAll('"', ''),
+          id: doc["document"]['"id"'].toString().replaceAll('"', ''),
+          description: doc["document"]['"description"'].toString().replaceAll('"', ''),
+          userId: doc["document"]['"userId"'].toString().replaceAll('"', ''),
+          subject: doc["document"]['"subject"'].toString().replaceAll('"', ''),
         ));
       });
     });
   }
 
-  openQuestion(Content content) {
-    readController.question = content;
-    Navigator.of(context).pushNamed('/questionView');
+  openQuestion(Content content) async {
+    if (!showQuestions) {
+      String questionParentId = await getQuestionParentId(content.id);
+
+      final searchParametersQuestionID = {
+        'q': '${questionParentId}',
+        'query_by': '"id"',
+      };
+
+      Map<String, dynamic> contentMap =
+          await client.collection('questions').documents.search(searchParametersQuestionID);
+
+      readController.question.id = contentMap["hits"][0]["document"]['"id"'].toString().replaceAll('"', '');
+      readController.question.title = contentMap["hits"][0]["document"]['"title"'].toString().replaceAll('"', '');
+      readController.question.description =
+          contentMap["hits"][0]["document"]['"description"'].toString().replaceAll('"', '');
+      readController.question.userId = contentMap["hits"][0]["document"]['"userId"'].toString().replaceAll('"', '');
+      readController.question.subject = contentMap["hits"][0]["document"]['"subject"'].toString().replaceAll('"', '');
+      Navigator.of(context).pushNamed('/questionView');
+    } else {
+      readController.question = content;
+      Navigator.of(context).pushNamed('/questionView');
+    }
   }
 
   deleteQuestion(Content content) async {
@@ -198,8 +219,11 @@ class _ProfileViewState extends State<ProfileView> {
                     children: [
                       SizedBox(
                         width: MediaQuery.of(context).size.width * 0.6,
-                        child: Text(
+                        child: AutoSizeText(
                           '${UserDB.name}',
+                          maxLines: 2,
+                          minFontSize: 15,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                             fontSize: 25,
                             fontWeight: FontWeight.w400,
