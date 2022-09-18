@@ -1,10 +1,8 @@
 import 'dart:collection';
 import 'dart:convert';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/controler/ReadController.dart';
@@ -80,8 +78,8 @@ class _QuestionListState extends State<QuestionList> {
               icon: Icon(Icons.arrow_back)),
           Padding(
             padding: const EdgeInsets.fromLTRB(20.0, 5, 5, 5),
-            child: AutoSizeText("Dúvidas de ${control.subject.title}",
-                maxLines: 1, minFontSize: 17, style: TextStyle(fontSize: 30, color: Color.fromARGB(255, 5, 54, 116))),
+            child: Text("Dúvidas de ${control.subject.title}",
+                style: TextStyle(fontSize: 30, color: Color.fromARGB(255, 5, 54, 116))),
           ),
           Center(
             child: SizedBox(

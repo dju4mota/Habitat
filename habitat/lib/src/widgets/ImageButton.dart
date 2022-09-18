@@ -35,7 +35,7 @@ class ImageButton extends StatelessWidget {
             iconSize: MediaQuery.of(context).size.height * 0.12,
           ),
           Text(
-            label,
+            label.split(" ")[0],
             style: TextStyle(
               fontSize: MediaQuery.of(context).size.height * 0.03,
               color: corFonte,

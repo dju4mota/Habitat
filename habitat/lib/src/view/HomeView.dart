@@ -26,42 +26,75 @@ class _HomeViewState extends State<HomeView> {
   FirebaseAuth _auth = FirebaseAuth.instance;
   ReadController readController = ReadController();
 
-  bool showCollege = true;
+  //bool showCollege = true;
   Color backgroundColorCollege = Util.azulEscuroBotao;
   Color backgroundColorCity = Util.fundoClaro;
   Color fontColorCollege = Util.fundoClaro;
   Color fontColorCity = Util.azulEscuroBotao;
+  String path1 = 'assets/programming2.png';
+  String path2 = 'assets/circuit-board2.png';
+  String path3 = 'assets/maths2.png';
+  String path4 = 'assets/anatomia2.png';
+  String subject1 = 'C202';
+  String subject2 = 'E201';
+  String subject3 = 'M004';
+  String subject4 = 'B202';
 
   openQuestionView(context, subjectTitle) {
     readController.subject = Subject(title: subjectTitle);
     Navigator.of(context).pushNamed('/questionList');
   }
 
-  invertCollegeAndCity() {
+  showCity() {
     setState(() {
-      if (showCollege) {
-        showCollege = !showCollege;
+      backgroundColorCollege = Util.fundoClaro;
+      backgroundColorCity = Util.azulEscuroBotao;
 
-        backgroundColorCollege = Util.fundoClaro;
-        backgroundColorCity = Util.azulEscuroBotao;
-
-        fontColorCollege = Util.azulEscuroBotao;
-        fontColorCity = Util.fundoClaro;
-        readController.path = "Cidade/santaRita/subjects/";
-        print(readController.path);
-      } else {
-        showCollege = !showCollege;
-
-        backgroundColorCollege = Util.azulEscuroBotao;
-        backgroundColorCity = Util.fundoClaro;
-
-        fontColorCollege = Util.fundoClaro;
-        fontColorCity = Util.azulEscuroBotao;
-        readController.path = "Faculdade/inatel/subjects/";
-        print(readController.path);
-      }
+      fontColorCollege = Util.azulEscuroBotao;
+      fontColorCity = Util.fundoClaro;
+      readController.path = "Cidade/santaRita/subjects/";
+      path1 = 'assets/coracao.png';
+      path2 = 'assets/dance.png';
+      path3 = 'assets/car-sharing.png';
+      path4 = 'assets/pub.png';
+      subject1 = 'Saúde & Estética';
+      subject2 = 'Festas & Eventos';
+      subject3 = 'Apps';
+      subject4 = 'Comércio';
     });
+
+    print(readController.path);
   }
+
+  showCollege() {
+    setState(() {
+      backgroundColorCollege = Util.azulEscuroBotao;
+      backgroundColorCity = Util.fundoClaro;
+
+      fontColorCollege = Util.fundoClaro;
+      fontColorCity = Util.azulEscuroBotao;
+      readController.path = "Faculdade/inatel/subjects/";
+      path1 = 'assets/programming2.png';
+      path2 = 'assets/circuit-board2.png';
+      path3 = 'assets/maths2.png';
+      path4 = 'assets/anatomia2.png';
+      subject1 = 'C202';
+      subject2 = 'E201';
+      subject3 = 'M004';
+      subject4 = 'B202';
+    });
+    print(readController.path);
+  }
+
+  // invertCollegeAndCity() {
+  //   setState(() {
+  //     if (showCollege && readController.path != "Cidade/santaRita/subjects/") {
+  //       showCollege = !showCollege;
+  //     } else if (readController.path != "Faculdade/inatel/subjects/") {
+  //       showCollege = !showCollege;
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +107,7 @@ class _HomeViewState extends State<HomeView> {
           children: [
             const SizedBox(
               // não sei se funciona para todo celular
-              height: 10,
+              height: 20,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -112,7 +145,7 @@ class _HomeViewState extends State<HomeView> {
               children: [
                 ButtonElipse(
                   "Faculdade",
-                  invertCollegeAndCity,
+                  showCollege,
                   fontSize: 20,
                   width: 150,
                   backgroundColor: backgroundColorCollege,
@@ -120,7 +153,7 @@ class _HomeViewState extends State<HomeView> {
                 ),
                 ButtonElipse(
                   "Cidade",
-                  invertCollegeAndCity,
+                  showCity,
                   fontSize: 20,
                   width: 150,
                   backgroundColor: backgroundColorCity,
@@ -186,12 +219,12 @@ class _HomeViewState extends State<HomeView> {
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    ImageButton("assets/programming2.png", () => {openQuestionView(context, "C204")}, "C204"),
-                    ImageButton("assets/circuit-board2.png", () => {openQuestionView(context, "E209")}, "E209"),
+                    ImageButton(path1, () => {openQuestionView(context, subject1)}, subject1),
+                    ImageButton(path2, () => {openQuestionView(context, subject2)}, subject2),
                   ]),
                   Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-                    ImageButton("assets/maths2.png", () => {openQuestionView(context, "M005")}, "M005"),
-                    ImageButton("assets/anatomia2.png", () => {openQuestionView(context, "B023")}, "B023"),
+                    ImageButton(path3, () => {openQuestionView(context, subject3)}, subject3),
+                    ImageButton(path4, () => {openQuestionView(context, subject4)}, subject4),
                   ]),
                 ],
               ),

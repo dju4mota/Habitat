@@ -33,7 +33,6 @@ class _ProfileViewState extends State<ProfileView> {
   List<Content> content = [];
 
   bool showQuestions = true;
-  bool showCollege = true;
   Color backgroundColorCollege = Util.azulEscuroBotao;
   Color backgroundColorCity = Util.fundoClaro;
   Color backgroundColorQuestion = Util.azulEscuroBotao;
@@ -48,31 +47,40 @@ class _ProfileViewState extends State<ProfileView> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  invertePerguntaResposta() {
+  showQuestion() {
     setState(() {
-      if (showQuestions) {
-        showQuestions = !showQuestions;
+      showQuestions = !showQuestions;
 
-        backgroundColorQuestion = Util.fundoClaro;
-        backgroundColorAnswer = Util.azulEscuroBotao;
+      backgroundColorQuestion = Util.azulEscuroBotao;
+      backgroundColorAnswer = Util.fundoClaro;
 
-        fontColorQuestion = Util.azulEscuroBotao;
-        fontColorAnswer = Util.fundoClaro;
+      fontColorQuestion = Util.fundoClaro;
+      fontColorAnswer = Util.azulEscuroBotao;
 
-        search('answers');
-      } else {
-        showQuestions = !showQuestions;
-
-        backgroundColorQuestion = Util.azulEscuroBotao;
-        backgroundColorAnswer = Util.fundoClaro;
-
-        fontColorQuestion = Util.fundoClaro;
-        fontColorAnswer = Util.azulEscuroBotao;
-
-        search('questions');
-      }
+      search('questions');
     });
   }
+
+  showAnswer() {
+    setState(() {
+      showQuestions = !showQuestions;
+
+      backgroundColorQuestion = Util.fundoClaro;
+      backgroundColorAnswer = Util.azulEscuroBotao;
+
+      fontColorQuestion = Util.azulEscuroBotao;
+      fontColorAnswer = Util.fundoClaro;
+
+      search('answers');
+    });
+  }
+
+  // invertePerguntaResposta() {
+  //   setState(() {
+  //     if (showQuestions) {
+  //     } else {}
+  //   });
+  // }
 
   final searchParameters = {
     'q': '\"${FirebaseAuth.instance.currentUser!.uid}\"',
@@ -277,7 +285,7 @@ class _ProfileViewState extends State<ProfileView> {
               children: [
                 ButtonElipse(
                   "Perguntas",
-                  invertePerguntaResposta,
+                  showQuestion,
                   fontSize: 20,
                   width: 150,
                   backgroundColor: backgroundColorQuestion,
@@ -285,7 +293,7 @@ class _ProfileViewState extends State<ProfileView> {
                 ),
                 ButtonElipse(
                   "Respostas",
-                  invertePerguntaResposta,
+                  showAnswer,
                   fontSize: 20,
                   width: 150,
                   backgroundColor: backgroundColorAnswer,
