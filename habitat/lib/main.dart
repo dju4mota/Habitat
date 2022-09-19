@@ -12,6 +12,7 @@ import 'package:habitat/src/view/ProfileView.dart';
 import 'package:habitat/src/view/QuestionList.dart';
 import 'package:habitat/src/view/QuestionView.dart';
 import 'package:habitat/src/view/RegisterView.dart';
+import 'package:habitat/src/view/SearchView.dart';
 import 'package:habitat/src/view/StartView.dart';
 import 'package:habitat/src/view/SubjectsAllView.dart';
 import 'package:provider/provider.dart';
@@ -57,6 +58,7 @@ class MyApp extends StatelessWidget {
         '/subjectsall': (context) => SubjectsAllView(),
         '/questionView': (context) => QuestionView(),
         '/answerView': (context) => AnswerView(),
+        '/searchView': (context) => SearchView(),
       },
       // home: AuthCheck(),
     );

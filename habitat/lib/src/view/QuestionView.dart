@@ -66,7 +66,13 @@ class _QuestionViewState extends State<QuestionView> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(
-                height: 50,
+                height: 30,
+              ),
+              IconButton(
+                onPressed: () => {
+                  Navigator.of(context).pop(),
+                },
+                icon: Icon(Icons.arrow_back),
               ),
               Column(
                 children: [

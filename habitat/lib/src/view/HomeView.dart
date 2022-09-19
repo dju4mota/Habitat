@@ -53,10 +53,10 @@ class _HomeViewState extends State<HomeView> {
       fontColorCollege = Util.azulEscuroBotao;
       fontColorCity = Util.fundoClaro;
       readController.path = "Cidade/santaRita/subjects/";
-      path1 = 'assets/coracao.png';
-      path2 = 'assets/dance.png';
-      path3 = 'assets/car-sharing.png';
-      path4 = 'assets/pub.png';
+      path1 = 'assets/SaudeSombra.png';
+      path2 = 'assets/FestaSombra.png';
+      path3 = 'assets/AppsSombra.png';
+      path4 = 'assets/ComercioSombra.png';
       subject1 = 'Saúde & Estética';
       subject2 = 'Festas & Eventos';
       subject3 = 'Apps';
@@ -181,7 +181,7 @@ class _HomeViewState extends State<HomeView> {
                   Padding(
                     padding: const EdgeInsets.all(0),
                     child: CupertinoButton(
-                      onPressed: () => {},
+                      onPressed: () => {Navigator.of(context).pushNamed('/searchView')},
                       child: const Icon(
                         Icons.search,
                         color: Color.fromARGB(255, 5, 54, 116),

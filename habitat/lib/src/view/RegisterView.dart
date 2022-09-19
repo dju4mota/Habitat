@@ -63,7 +63,7 @@ class _RegisterViewState extends State<RegisterView> {
               passwordController.text,
             );
         await saveUserInDB(context);
-        //Navigator.of(context).popAndPushNamed('/home');
+        Navigator.of(context).pop();
         ScaffoldMessenger.of(context).showSnackBar(
           const SnackBar(content: Text("Cadastro realizado com sucesso!")),
         );

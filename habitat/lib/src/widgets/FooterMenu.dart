@@ -30,7 +30,7 @@ class FooterMenu extends StatelessWidget {
           CupertinoButton(
             onPressed: () {
               if (ModalRoute.of(context)!.settings.name != "/home") {
-                Navigator.of(context).pushNamed('/home');
+                Navigator.of(context).pushNamed('/searchView');
               }
             },
             child: Icon(Icons.search, color: corBotao, size: 35),
