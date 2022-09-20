@@ -55,7 +55,7 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const SizedBox(
-            height: 40,
+            height: 20,
           ),
           IconButton(
             onPressed: () => {
@@ -65,7 +65,7 @@ class _SubjectsAllViewState extends State<SubjectsAllView> {
           ),
           Center(
             child: SizedBox(
-              height: MediaQuery.of(context).size.height * 0.8,
+              height: MediaQuery.of(context).size.height * 0.82,
               child: ListView.builder(
                 padding: EdgeInsets.all(0),
                 itemCount: subjects.length,

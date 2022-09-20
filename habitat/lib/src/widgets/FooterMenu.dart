@@ -29,7 +29,7 @@ class FooterMenu extends StatelessWidget {
           ),
           CupertinoButton(
             onPressed: () {
-              if (ModalRoute.of(context)!.settings.name != "/home") {
+              if (ModalRoute.of(context)!.settings.name != "/searchView") {
                 Navigator.of(context).pushNamed('/searchView');
               }
             },

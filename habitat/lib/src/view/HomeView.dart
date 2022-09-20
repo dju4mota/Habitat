@@ -74,10 +74,10 @@ class _HomeViewState extends State<HomeView> {
       fontColorCollege = Util.fundoClaro;
       fontColorCity = Util.azulEscuroBotao;
       readController.path = "Faculdade/inatel/subjects/";
-      path1 = 'assets/programming2.png';
-      path2 = 'assets/circuit-board2.png';
-      path3 = 'assets/maths2.png';
-      path4 = 'assets/anatomia2.png';
+      path1 = 'assets/programSomb.png';
+      path2 = 'assets/circuitSomb.png';
+      path3 = 'assets/mathSomb.png';
+      path4 = 'assets/anatoSomb.png';
       subject1 = 'C202';
       subject2 = 'E201';
       subject3 = 'M004';
@@ -107,7 +107,7 @@ class _HomeViewState extends State<HomeView> {
           children: [
             const SizedBox(
               // não sei se funciona para todo celular
-              height: 20,
+              height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,

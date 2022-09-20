@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
       backgroundColor: Util.azulClaroFundo,
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.only(top: 50),
+          padding: const EdgeInsets.only(top: 20),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.fromLTRB(25.0, 0, 0, 0),
                 child: const Text("Login", style: TextStyle(fontSize: 45)),
               ),
-              const SizedBox(height: 100),
+              const SizedBox(height: 90),
               Form(
                 key: formKey,
                 child: Column(
@@ -130,7 +130,11 @@ class _LoginPageState extends State<LoginPage> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Text("Ainda não tem uma conta?"),
-                  TextButton(onPressed: () => {}, child: const Text("Cadastre-se"))
+                  TextButton(
+                      onPressed: () => {
+                            Navigator.of(context).pushNamed("/register"),
+                          },
+                      child: const Text("Cadastre-se"))
                 ],
               )
             ],
