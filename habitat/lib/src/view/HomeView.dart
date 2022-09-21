@@ -31,10 +31,10 @@ class _HomeViewState extends State<HomeView> {
   Color backgroundColorCity = Util.fundoClaro;
   Color fontColorCollege = Util.fundoClaro;
   Color fontColorCity = Util.azulEscuroBotao;
-  String path1 = 'assets/programming2.png';
-  String path2 = 'assets/circuit-board2.png';
-  String path3 = 'assets/maths2.png';
-  String path4 = 'assets/anatomia2.png';
+  String path1 = 'assets/programSomb.png';
+  String path2 = 'assets/circuitSomb.png';
+  String path3 = 'assets/mathSomb.png';
+  String path4 = 'assets/anatoSomb.png';
   String subject1 = 'C202';
   String subject2 = 'E201';
   String subject3 = 'M004';
@@ -53,7 +53,7 @@ class _HomeViewState extends State<HomeView> {
       fontColorCollege = Util.azulEscuroBotao;
       fontColorCity = Util.fundoClaro;
       readController.path = "Cidade/santaRita/subjects/";
-      path1 = 'assets/SaudeSombra.png';
+      path1 = 'assets/SaudeSomb.png';
       path2 = 'assets/FestaSombra.png';
       path3 = 'assets/AppsSombra.png';
       path4 = 'assets/ComercioSombra.png';
@@ -95,6 +95,10 @@ class _HomeViewState extends State<HomeView> {
   //     }
   //   });
   // }
+
+  _HomeViewState() {
+    readController.path = "Faculdade/inatel/subjects/";
+  }
 
   @override
   Widget build(BuildContext context) {

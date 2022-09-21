@@ -30,10 +30,37 @@ class _QuestionViewState extends State<QuestionView> {
   carregaLista() async {
     answers.clear();
 
-    QuerySnapshot snapshot =
-        await db.collection('${readController.path}${control.subject.title}/questions/${question.id}/answers/').get();
+    print(readController.path + readController.subject.title);
+    print(question.id);
 
-    snapshot.docs.forEach((doc) {
+    QuerySnapshot snapshotCollege =
+        // await db.collection('${readController.path}${control.subject.title}/questions/${question.id}/answers/').get();
+        await db
+            .collection('Faculdade/inatel/subjects/${control.subject.title}/questions/${question.id}/answers/')
+            .get();
+
+    snapshotCollege.docs.forEach((doc) {
+      // final json = jsonDecode(doc.data().toString());
+      Map<String, dynamic> json = doc.data() as Map<String, dynamic>;
+      //final LinkedHashMap json = jsonDecode(doc.data()!.toString());
+      print((json.containsKey('"title"')));
+      setState(() {
+        answers.add(Answer(
+          title: json['"title"'].toString().replaceAll('"', ''),
+          id: json['"id"'].toString().replaceAll('"', ''),
+          description: json['"description"'].toString().replaceAll('"', ''),
+          userId: json['"userId"'].toString().replaceAll('"', ''),
+          questionParentId: json['"questionId"'].toString().replaceAll('"', ''),
+          subject: json['"subject"'].toString().replaceAll('"', ''),
+        ));
+      });
+    });
+
+    QuerySnapshot snapshotCity = await db
+        .collection('Cidade/santaRita/subjects/${control.subject.title}/questions/${question.id}/answers/')
+        .get();
+
+    snapshotCity.docs.forEach((doc) {
       // final json = jsonDecode(doc.data().toString());
       Map<String, dynamic> json = doc.data() as Map<String, dynamic>;
       //final LinkedHashMap json = jsonDecode(doc.data()!.toString());

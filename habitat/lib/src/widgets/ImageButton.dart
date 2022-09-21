@@ -17,7 +17,7 @@ class ImageButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 5.0),
+      padding: const EdgeInsets.fromLTRB(15.0, 2.0, 15.0, 5.0),
       decoration: BoxDecoration(
         color: cor,
         borderRadius: BorderRadius.circular(20),
@@ -25,6 +25,7 @@ class ImageButton extends StatelessWidget {
       child: Column(
         children: [
           IconButton(
+            enableFeedback: true,
             onPressed: () {
               onPressed();
             },

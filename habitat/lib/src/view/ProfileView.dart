@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 
 import 'package:typesense/typesense.dart';
 
+import '../models/Subjects.dart';
 import '../utils/utils.dart';
 import '../widgets/ButtonElipse.dart';
 import '../widgets/FooterMenu.dart';
@@ -130,8 +131,12 @@ class _ProfileViewState extends State<ProfileView> {
           contentMap["hits"][0]["document"]['"description"'].toString().replaceAll('"', '');
       readController.question.userId = contentMap["hits"][0]["document"]['"userId"'].toString().replaceAll('"', '');
       readController.question.subject = contentMap["hits"][0]["document"]['"subject"'].toString().replaceAll('"', '');
+      readController.subject = Subject(title: readController.question.subject);
+      print(readController.subject.title);
       Navigator.of(context).pushNamed('/questionView');
     } else {
+      readController.subject = Subject(title: content.subject);
+      print(readController.subject.title);
       readController.question = content;
       Navigator.of(context).pushNamed('/questionView');
     }
