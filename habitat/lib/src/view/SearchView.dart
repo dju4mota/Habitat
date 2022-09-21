@@ -9,6 +9,7 @@ import 'package:habitat/src/backend/db_firestore.dart';
 import 'package:habitat/src/backend/typeSenseConfig.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Content.dart';
+import 'package:habitat/src/models/Subjects.dart';
 import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:habitat/src/widgets/QuestionItemList.dart';
@@ -31,6 +32,8 @@ class _SearchViewState extends State<SearchView> {
   List<Content> questions = [];
 
   saveQuestionToShow(Content question) {
+    control.subject = Subject(title: question.subject);
+    print(control.subject.title);
     control.question = question;
   }
 
@@ -50,7 +53,7 @@ class _SearchViewState extends State<SearchView> {
     Map<String, dynamic> contentMap = await client.collection("questions").documents.search(
       {
         'q': searchController.text,
-        'query_by': '"title"',
+        'query_by': '"title", "description"',
       },
     );
     print(contentMap['hits']);
