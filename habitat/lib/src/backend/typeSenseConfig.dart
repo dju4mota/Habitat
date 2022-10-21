@@ -18,11 +18,11 @@ class TypeSenseInstance {
   void configura() async {
     final host = InternetAddress.loopbackIPv4.address, protocol = Protocol.http;
     final config = Configuration(
-      'WauT78cGIadfNvK8odHEj4ZbMtzQdimc', // apiKey
+      '0qKKPkbanleYIdPzXPiB98qDIoxrXV8U', // apiKey
       nodes: {
         Node(
           Protocol.https,
-          'ou4inezmag73hs8rp-1.a1.typesense.net', // host
+          'xnblpf2zujk5e8w6p-1.a1.typesense.net', // host
           port: 443,
         ),
         // Node.withUri(

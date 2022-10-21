@@ -9,28 +9,34 @@ class AuthException implements Exception {
 }
 
 class AuthService extends ChangeNotifier {
-  FirebaseAuth _auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   User? usuario;
   bool isLoading = true;
 
   AuthService() {
     _authCheck();
   }
+
+  //  To Do - try catch para não achar usuario mas ficar tentando
   _authCheck() {
     _auth.authStateChanges().listen((User? user) async {
       usuario = (user == null) ? null : user;
       isLoading = false;
       await UserDB.getUser();
+      // avisa que houve mudança no estado do usuario
       notifyListeners();
     });
   }
 
+//  To Do - try catch para não achar usuario mas ficar tentando
   _getUser() async {
     usuario = _auth.currentUser;
     await UserDB.getUser();
+    // avisa que houve mudança no estado do usuario
     notifyListeners();
   }
 
+// To Do - verificação por email
   register(String email, String password) async {
     try {
       await _auth.createUserWithEmailAndPassword(email: email, password: password);

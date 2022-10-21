@@ -16,16 +16,23 @@ class _AuthCheckState extends State<AuthCheck> {
   Widget build(BuildContext context) {
     AuthService auth = Provider.of<AuthService>(context);
 
-    if (auth.isLoading) {
-      return loading();
-    } else if (auth.usuario == null) {
-      print("usuario nulo");
-      return const StartView();
-    } else {
-      print("usuario logado");
-      print(auth.usuario?.email);
+    // return StartView();
 
-      return HomeView();
+    try {
+      if (auth.isLoading) {
+        return loading();
+      } else if (auth.usuario == null) {
+        print("usuario nulo");
+        return const StartView();
+      } else {
+        print("usuario logado");
+        print(auth.usuario?.email);
+
+        return HomeView();
+      }
+    } catch (e) {
+      print(e);
+      return const StartView();
     }
   }
 

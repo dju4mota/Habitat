@@ -37,12 +37,17 @@ class _PostingViewState extends State<PostingView> {
 
   final uuid = Uuid();
 
-  List<String> subjects = ['Selecione uma matéria'];
+  late List<String> subjects;
+
   late String dropdownValue;
 
   carregaLista() async {
     subjects.clear();
-    subjects.add('Selecione uma matéria');
+    if (readController.path == "Faculdade/inatel/subjects/") {
+      subjects.add('Selecione uma matéria');
+    } else {
+      subjects.add('Escolha o assunto');
+    }
     QuerySnapshot snapshot = await db.collection(readController.path).get();
 
     snapshot.docs.forEach((doc) {
@@ -57,6 +62,11 @@ class _PostingViewState extends State<PostingView> {
   }
 
   _PostingViewState() {
+    if (readController.path == "Faculdade/inatel/subjects/") {
+      subjects = ['Selecione uma matéria'];
+    } else {
+      subjects = ['Escolha o assunto'];
+    }
     carregaLista();
     dropdownValue = subjects.first;
   }

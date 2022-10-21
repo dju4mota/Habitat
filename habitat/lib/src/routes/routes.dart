@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 import 'package:habitat/src/backend/AuthService.dart';
 import 'package:habitat/src/view/AnswerView.dart';
@@ -11,9 +12,32 @@ import 'package:habitat/src/view/RegisterView.dart';
 import 'package:habitat/src/view/StartView.dart';
 import 'package:habitat/src/view/SubjectsAllView.dart';
 
+import '../backend/AuthCheck.dart';
+import '../view/SearchView.dart';
+
+class Routes {
+  static Map<String, Widget Function(BuildContext)> list = <String, WidgetBuilder>{
+    '/': (_) => AuthCheck(),
+    '/login': (_) => LoginPage(),
+    '/start': (_) => StartView(),
+    '/register': (_) => RegisterView(),
+    '/home': (_) => HomeView(),
+    '/posting': (_) => PostingView(),
+    '/questionList': (_) => QuestionList(),
+    '/profile': (_) => ProfileView(),
+    '/subjectsall': (_) => SubjectsAllView(),
+    '/questionView': (_) => QuestionView(),
+    '/answerView': (_) => AnswerView(),
+    '/searchView': (_) => SearchView(),
+  };
+  static String initialRoute = '/';
+  static GlobalKey<NavigatorState>? navigatorKey = GlobalKey<NavigatorState>();
+}
+
 final authService = AuthService();
 
 final routes = GoRouter(
+  // ?
   refreshListenable: authService,
   redirect: (state) {
     final isAutheticated = authService.usuario != null;
