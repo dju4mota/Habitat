@@ -19,8 +19,11 @@ class _RegisterViewState extends State<RegisterView> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final passwordConfirmationController = TextEditingController();
   final nomeController = TextEditingController();
   final periodoController = TextEditingController();
+
+  RegExp exp = RegExp("(\w*\.\w*@(ges|gec|geb|gea)\.inatel.br)|(\w*@inatel.br)");
 
   bool isLogin = true;
   bool aceitouTermos = false;
@@ -130,6 +133,9 @@ class _RegisterViewState extends State<RegisterView> {
                         if (value!.isEmpty) {
                           return 'Informe o email corretamente';
                         }
+                        if (exp.hasMatch(value)) {
+                          return "Coloque um email institucional válido";
+                        }
                         return null;
                       },
                       TextInputType.emailAddress,
@@ -142,6 +148,23 @@ class _RegisterViewState extends State<RegisterView> {
                           return 'Informe sua senha';
                         } else if (value.length < 8) {
                           return "Sua senha deve ter no mínimo 8 caracteres";
+                        }
+                        return null;
+                      },
+                      TextInputType.text,
+                      obscure: true,
+                    ),
+                    formField(
+                      passwordConfirmationController,
+                      "Senha",
+                      (value) {
+                        if (value!.isEmpty) {
+                          return 'Confirme sua senha';
+                        } else if (value.length < 8) {
+                          return "Sua senha deve ter no mínimo 8 caracteres";
+                        }
+                        if (value != passwordController.text) {
+                          return "As senhas não coincidem";
                         }
                         return null;
                       },
