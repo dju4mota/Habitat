@@ -15,43 +15,54 @@ class FooterMenu extends StatelessWidget {
             color: Colors.black,
           ),
           borderRadius: BorderRadius.all(Radius.circular(20))),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          // 4 buttons
-          CupertinoButton(
-            onPressed: () {
-              if (ModalRoute.of(context)!.settings.name != "/home") {
-                Navigator.of(context).pushNamed('/home');
-              }
-            },
-            child: Icon(Icons.home, color: corBotao, size: 35),
-          ),
-          CupertinoButton(
-            onPressed: () {
-              if (ModalRoute.of(context)!.settings.name != "/searchView") {
-                Navigator.of(context).pushNamed('/searchView');
-              }
-            },
-            child: Icon(Icons.search, color: corBotao, size: 35),
-          ),
-          CupertinoButton(
-            onPressed: () {
-              if (ModalRoute.of(context)!.settings.name != "/posting") {
-                Navigator.of(context).pushNamed('/posting');
-              }
-            },
-            child: Icon(Icons.add, color: corBotao, size: 35),
-          ),
-          CupertinoButton(
-            onPressed: () {
-              if (ModalRoute.of(context)!.settings.name != "/profile") {
-                Navigator.of(context).pushNamed('/profile');
-              }
-            },
-            child: Icon(Icons.person, color: corBotao, size: 35),
-          ),
-        ],
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 0, 0, 5),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // 5 buttons
+            CupertinoButton(
+              onPressed: () {
+                if (ModalRoute.of(context)!.settings.name != "/home") {
+                  Navigator.of(context).pushNamed('/home');
+                }
+              },
+              child: Icon(Icons.home, color: corBotao, size: 35),
+            ),
+            CupertinoButton(
+              onPressed: () {
+                if (ModalRoute.of(context)!.settings.name != "/searchView") {
+                  Navigator.of(context).pushNamed('/searchView');
+                }
+              },
+              child: Icon(Icons.search, color: corBotao, size: 35),
+            ),
+            CupertinoButton(
+              onPressed: () {
+                if (ModalRoute.of(context)!.settings.name != "/posting") {
+                  Navigator.of(context).pushNamed('/posting');
+                }
+              },
+              child: Icon(Icons.add, color: corBotao, size: 35),
+            ),
+            CupertinoButton(
+              onPressed: () {
+                if (ModalRoute.of(context)!.settings.name != "/home") {
+                  Navigator.of(context).pushNamed('/home');
+                }
+              },
+              child: Icon(Icons.home, color: corBotao, size: 35),
+            ),
+            CupertinoButton(
+              onPressed: () {
+                if (ModalRoute.of(context)!.settings.name != "/profile") {
+                  Navigator.of(context).pushNamed('/profile');
+                }
+              },
+              child: Icon(Icons.person, color: corBotao, size: 35),
+            ),
+          ],
+        ),
       ),
     );
   }
