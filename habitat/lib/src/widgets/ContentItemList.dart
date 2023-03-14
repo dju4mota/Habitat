@@ -20,7 +20,7 @@ class ContentItemList extends StatelessWidget {
       child: Container(
         width: MediaQuery.of(context).size.width * 0.9,
         decoration: BoxDecoration(
-          color: Util.fundoClaro,
+          color: Util.azulClarinho,
           border: Border.all(
             width: 2,
             color: Color.fromARGB(255, 5, 54, 116),
@@ -34,14 +34,12 @@ class ContentItemList extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.fromLTRB(20.0, 5, 5, 20.0),
               child: SizedBox(
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.62,
-                    child: Text(
-                      question.description,
-                      style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116)),
-                    ),
-                  )),
+                // width: MediaQuery.of(context).size.width,
+                child: Text(
+                  question.description,
+                  style: TextStyle(fontSize: 20, color: Color.fromARGB(255, 5, 54, 116)),
+                ),
+              ),
             ),
             SizedBox(
               height: MediaQuery.of(context).size.height * answers.length * 0.13,

@@ -3,12 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:habitat/src/controler/NotificationService.dart';
 import 'package:habitat/src/controler/ReadController.dart';
 import 'package:habitat/src/models/Subjects.dart';
 import 'package:habitat/src/utils/utils.dart';
 import 'package:habitat/src/widgets/ButtonElipse.dart';
 import 'package:habitat/src/widgets/FooterMenu.dart';
 import 'package:habitat/src/widgets/ImageButton.dart';
+import 'package:provider/provider.dart';
 import 'package:typesense/typesense.dart';
 
 import '../backend/db_firestore.dart';
@@ -98,6 +100,8 @@ class _HomeViewState extends State<HomeView> {
 
   _HomeViewState() {
     readController.path = "Faculdade/inatel/subjects/";
+    // Provider.of<NotificationService>(context, listen: false)
+    // .showNotification(CustomNotification(id: 7, title: "titulo", body: "body", payload: '14314234234342'));
   }
 
   @override

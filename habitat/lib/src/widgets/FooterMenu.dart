@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:habitat/src/utils/utils.dart';
 
 class FooterMenu extends StatelessWidget {
   final Color corBotao = Color.fromARGB(255, 1, 48, 108);
@@ -10,7 +11,7 @@ class FooterMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 223, 225, 227),
+          color: Util.azulClarinho,
           border: Border.all(
             color: Colors.black,
           ),
